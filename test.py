@@ -1,6 +1,4 @@
-from InformationGain import IG
-from filter_the_vocabulary import positive_word_in_reviews,negative_word_in_reviews
-from construct_training_examples import training_vector
+from construct_training_examples import training_data_frame
 from ID3 import DecisionTree
 '''
 my_list = ([("the",0),("gay",1),("0",0),("a",1),("l",0),1],[("the",0),("gay",1),("0",0),("a",1),("l",0),0])
@@ -15,5 +13,4 @@ print(info_gain)
 #my_list[x][len(my_list[x])-1
 ''' 
 
-p1 = DecisionTree(training_vector,negative_word_in_reviews,positive_word_in_reviews)
-print(p1.GetMaxInfoGain())
+p1 = DecisionTree(training_data_frame,"positive_or_negative",[0,1])

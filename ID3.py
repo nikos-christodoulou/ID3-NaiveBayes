@@ -1,5 +1,5 @@
 import InformationGain
-
+from math import log
 class Node:
     '''
     Contains the data for the specific node 
@@ -12,19 +12,34 @@ class Node:
         self.childs = None 
 
 
-
+'''
+in our case it would be something like 
+Algo_start = ID3(0_1vector,positive_or_negative,[0,1])
+'''
 
 class DecisionTree: 
-    def __init__(self,training_vector,countword_negative_reviews,countword_positive_reviews):
+    '''
+    Arguments for initializer: 
+    It needs to take the categories, the classes for each category
+    In our case the categories are the words, and the classes for each category is 0,1
+    '''
+    def __init__(self,training_data,target,classes):
         self.node = None 
-        self.vector = training_vector
-        self.positive_reviews = sum(training_vector[x][len(training_vector[x])-1] for x in range(0,len(training_vector))) # a generator summing all the vectors with 1 at their last position
-        self.negative_reviews = sum(1 for x in range (0,len(training_vector)) if training_vector[x][len(training_vector[x])-1] == 0) # a generator summing all the vectors with 0 at their last position
-        self.entropy = self.calculate_entropy()
+        self.vector = training_data
+        self.total_number = training_data.shape[0]
+        self.categories = training_data.columns # all the possible categories of the dataset
+        self.classes_list = [None]*len(classes)
+        self.entropy_for_each_category = None 
+        for x in classes:
+            self.classes_list[x] = training_data[training_data[target] == x].shape[0] 
+        self.entropy = self.calculate_entropy([x for x in range(0,len(self.categories))])
 
-    def calculate_entropy(self):
-        #the function definitions are contained in the InformationGain file
-        return InformationGain.Entropy(self.positive_reviews,self.negative_reviews)
+    def calculate_entropy(self,ids_of_categories):
+        labels = [self.categories[x] for x in ids_of_categories]
+        count_categories = [labels.count(x) for x in self.categories]
+        self.entropy_for_each_category = [-y/self.total_number*log(y/self.total_number,2)for y in count_categories]
+        entropy = sum(self.entropy_for_each_category)
+        return entropy 
     def InfoGain(self,specific_word):
         return InformationGain.IG(self.positive_reviews,self.negative_reviews,self.word_positive[specific_word],self.word_negative[specific_word]) 
     def GetMaxInfoGain(self): 
@@ -34,17 +49,18 @@ class DecisionTree:
         return max_ig
     def ID3_start(self):
         
-    def ID3_call(self):
+    
+    #def ID3_call(self):
 
-        # if there isn't a starting root node starrt        
-        if not self.node: 
+        # if there isn't a starting root node start        
+     #   if not self.node: 
             node = Node() 
         
         #if a word belongs to one class (positive or negative) return one category 
 
-        if () :
-            node.value = self
-            return self.node
+      #  if () :
+        #    node.value = self
+       #     return self.node
         
         #if we can't more feautures return the majority 
 
@@ -52,4 +68,4 @@ class DecisionTree:
 
 
         # split between vectors that contain word and those who don't 
-
+        #'''

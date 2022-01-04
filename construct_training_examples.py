@@ -1,12 +1,16 @@
+from numpy import positive
 from filter_the_vocabulary import vocabulary
-from countwords import read_text_file
+
 import os 
+import pandas as pd 
 folders = ['neg','pos']
-training_vector = list()
+training_vector = dict()
 '''
 We will create a binary vector with 1 if the word in the dictionary is present in the sentence 
 else the value will be 0 if it's not contained in the word 
+this will be a pandas dataframe 
 ''' 
+training_data_frame = pd.DataFrame()
 for i in folders:
     path = "C:/Users/fotis/OneDrive/Desktop/Aiexercise2/aclImdb/train/" + i 
     os.chdir(path)
@@ -21,21 +25,22 @@ for i in folders:
         sentence = sentence.lower()
         sentence = sentence.replace("<br />"," ")
         splited_sentence = sentence.split() 
-        temp_list = list()
         for key in vocabulary:
-            
+            if(not(key in training_vector)):
+                training_vector[key] = list()
             if(key in splited_sentence):
-                temp_list.append((key,1))
+                training_vector[key].append(1)
             else:
-                temp_list.append((key,0))
+                training_vector[key].append(0)
+        if(not("positive_or_negative" in training_vector)):
+                training_vector["positive_or_negative"] = list()
         if(i == "neg"):
-            temp_list.append(0)
+            training_vector["positive_or_negative"].append(0)
         else:
-            temp_list.append(1)
-        training_vector.append(temp_list)
+            training_vector["positive_or_negative"].append(1)
         f.close()
 
-print(training_vector[10])
-
-            
+training_data_frame = pd.DataFrame(training_vector)
+print(training_data_frame[training_data_frame["positive_or_negative"] == 1].shape[0])
+ 
         
