@@ -1,5 +1,7 @@
+from numpy.core.fromnumeric import shape
 from construct_training_examples import training_data_frame
 from ID3 import DecisionTree
+import numpy as np 
 '''
 my_list = ([("the",0),("gay",1),("0",0),("a",1),("l",0),1],[("the",0),("gay",1),("0",0),("a",1),("l",0),0])
 this = list()
@@ -12,5 +14,10 @@ print(info_gain)
 #print(sum(1 for x in range (0,len(my_list)) if my_list[x][len(my_list[x])-1] == 0))
 #my_list[x][len(my_list[x])-1
 ''' 
+# we use np array for handling two dimensional arrays better
+values_for_each_sentence = np.array(training_data_frame.drop('positive_or_negative',axis=1)).copy()
+values_for_positiveornegative = np.array(training_data_frame["positive_or_negative"]).copy()
+x_dim = training_data_frame.shape[1] - 1
+categories = list(training_data_frame.keys())[:x_dim]
 
-p1 = DecisionTree(training_data_frame,"positive_or_negative",[0,1])
+p1 = DecisionTree(values_for_each_sentence,categories,values_for_positiveornegative)

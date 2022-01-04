@@ -12,27 +12,21 @@ class Node:
         self.childs = None 
 
 
-'''
-in our case it would be something like 
-Algo_start = ID3(0_1vector,positive_or_negative,[0,1])
-'''
+
 
 class DecisionTree: 
     '''
     Arguments for initializer: 
-    It needs to take the categories, the classes for each category
-    In our case the categories are the words, and the classes for each category is 0,1
+    It needs to take the categories,the values for each category and the 
+    target values 
     '''
-    def __init__(self,training_data,target,classes):
+    def __init__(self,values_of_categories,categories,positive_or_negative):
         self.node = None 
-        self.vector = training_data
-        self.total_number = training_data.shape[0]
-        self.categories = training_data.columns # all the possible categories of the dataset
-        self.classes_list = [None]*len(classes)
-        self.entropy_for_each_category = None 
-        for x in classes:
-            self.classes_list[x] = training_data[training_data[target] == x].shape[0] 
-        self.entropy = self.calculate_entropy([x for x in range(0,len(self.categories))])
+        self.category_values = values_of_categories 
+        self.categories = categories 
+        self.value_target = positive_or_negative 
+        self.calculate_entropy()
+
 
     def calculate_entropy(self,ids_of_categories):
         labels = [self.categories[x] for x in ids_of_categories]
