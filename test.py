@@ -20,4 +20,8 @@ values_for_positiveornegative = np.array(training_data_frame["positive_or_negati
 x_dim = training_data_frame.shape[1] - 1
 categories = list(training_data_frame.keys())[:x_dim]
 
+print(categories)
+print(values_for_positiveornegative)
+print(values_for_each_sentence)
+
 p1 = DecisionTree(values_for_each_sentence,categories,values_for_positiveornegative)

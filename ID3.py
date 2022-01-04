@@ -22,17 +22,18 @@ class DecisionTree:
     '''
     def __init__(self,values_of_categories,categories,positive_or_negative):
         self.node = None 
-        self.category_values = values_of_categories 
-        self.categories = categories 
-        self.value_target = positive_or_negative 
-        self.calculate_entropy()
+        self.category_values = values_of_categories # for each review the words present in that review 
+        self.categories = categories # the names of all the words 
+        self.value_target = positive_or_negative # whether a review is positive or negative 
+        self.calculate_entropy([x for x in range(0,len(self.value_target))])
 
 
     def calculate_entropy(self,ids_of_categories):
-        labels = [self.categories[x] for x in ids_of_categories]
-        count_categories = [labels.count(x) for x in self.categories]
-        self.entropy_for_each_category = [-y/self.total_number*log(y/self.total_number,2)for y in count_categories]
-        entropy = sum(self.entropy_for_each_category)
+        # the target value for each review  
+        values = [self.value_target[i] for i in ids_of_categories]
+        values_count = [values.count(x) for x in self.value_target]
+        entropy_for_each_category = [- y/len(self.value_target) * log(y/len(self.value_target)) for y in values_count] 
+        entropy = sum(entropy_for_each_category)
         return entropy 
     def InfoGain(self,specific_word):
         return InformationGain.IG(self.positive_reviews,self.negative_reviews,self.word_positive[specific_word],self.word_negative[specific_word]) 
