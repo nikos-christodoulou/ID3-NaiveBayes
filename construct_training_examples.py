@@ -41,6 +41,6 @@ for i in folders:
         f.close()
 
 training_data_frame = pd.DataFrame(training_vector)
-print(training_data_frame[training_data_frame["positive_or_negative"] == 1].shape[0])
+print(training_data_frame)
  
         
