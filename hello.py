@@ -33,3 +33,14 @@ x_targets_count = (1,2,3,4,5,6)
 id_of_category = ([1,2,3,4],[5,6,7,8])
 x = [v_counts/len(id_of_category) * 0.5 for v_counts,v_ids in zip(x_targets_count,id_of_category)]
 print(x)
+
+def add_letter(mylist):
+    for i in range(len(mylist)):
+        mylist[i] = str(mylist[i]) + randomletter
+
+
+# Now you can call addletter function
+mylist = [1, 2, 3, 4, 5, 6, 7, 8, 9, ];
+randomletter = 'a'
+add_letter(mylist)
+print(mylist)

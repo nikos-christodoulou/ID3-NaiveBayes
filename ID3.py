@@ -68,6 +68,7 @@ class DecisionTree:
         #we can try the below and not create the list again 
         #entropy_category = [self.InfoGain(self.categories[x],ids_of_categories) for x in each_category_id] 
         max_category = each_category_id[i]
+        #max_category = each_category_id[entropy_category.index(max(entropy_category))]
         return self.categories[max_category],max_category 
     def ID3_start(self):
         category_values_ids = [x for x in range(len(self.category_values))]
@@ -97,7 +98,6 @@ class DecisionTree:
         #make the value of this node equeal to the most IG category
         node.value = category_name
         #
-        for x in category_values_ids:
         #we need to create as many node as there are possible instances for each category 
         #split between nodes that contain category and those who don't 
-            print()
+            
