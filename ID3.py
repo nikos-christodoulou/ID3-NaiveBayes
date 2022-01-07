@@ -9,7 +9,7 @@ class Node:
     def __init__(self):
         self.value = None 
         self.next = None 
-        self.childs = None 
+        self.childs = list() 
 
 
 
@@ -83,7 +83,7 @@ class DecisionTree:
             node = Node() 
         #now if we have the same target values for every category 
         targets = [self.value_target[x] for x in category_values_ids]
-        #if a word belongs to one class (positive or negative) return one category 
+        #if a word belongs to one class (positive or negative in this case) return the one class 
         if (len(set(targets)) == 1):
             node.value = self.value_target[category_values_ids[0]]
             return node
@@ -97,7 +97,16 @@ class DecisionTree:
         
         #make the value of this node equeal to the most IG category
         node.value = category_name
-        #
         #we need to create as many node as there are possible instances for each category 
-        #split between nodes that contain category and those who don't 
-            
+        #we find the values for the max IG category so we can split between the values of the category
+        category_values = set([self.category_values[x][category_id] for x in category_values_ids])
+        for x in category_values:
+            child = Node() 
+            child.value = x 
+            node.childs.append(child)
+            values_for_child = [value for value in category_ids if self.category_values[value][category_id] == value] 
+            if category_ids and category_id in category_ids:
+                remove = category_ids.index(category_id)
+                category_ids.pop(remove)
+                child.next = self.ID3_call(values_for_child,category_ids,child.next)
+        return node 
