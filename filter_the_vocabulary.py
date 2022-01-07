@@ -17,7 +17,7 @@ for x in vocabulary:
     information = IG(positive_reviews,negative_reviews,positive_word_in_reviews[x],negative_word_in_reviews[x])
     vocabulary[x] = information
     
-for i in range (0,499):
+for i in range (0,6):
     '''
     Find the max key aka the word with the largest IG and take it out of the dictionary 
     this is done to find the next most informational word 
