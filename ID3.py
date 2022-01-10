@@ -8,8 +8,8 @@ class Node:
     '''
     def __init__(self):
         self.value = None 
-        self.next = None 
-        self.childs = list() 
+        self.next = None # next is the category of the next node 
+        self.childs = list() # the childs are the possible values for each category
 
 
 
@@ -27,7 +27,7 @@ class DecisionTree:
         self.value_target = positive_or_negative # whether a review is positive or negative, this is a 1 dimension np array which is the same length as the columns of the category values array
         self.value_target_set = list(set(self.value_target))
         self.entropy = self.calculate_entropy([x for x in range(0,len(self.value_target))])#total entropy 
-        self.print_queue = list() 
+       
     def calculate_entropy(self,ids_of_reviews):
         #find the target value for each category contained in the ids of categories  
         values = [self.value_target[i] for i in ids_of_reviews]
@@ -56,74 +56,83 @@ class DecisionTree:
         info_gain_category = sum([x[0]/len(ids_of_reviews) * self.calculate_entropy(x[1]) for x in values_and_categories])
         IG = IG - info_gain_category
         return IG
-    def GetMaxInfoGain(self,ids_of_categories,each_category_id): 
+    def GetMaxInfoGain(self,ids_of_reviews,each_category_id): 
         #min_max sorting algorithm 
         max = 0 #the max info gain right now  
         i = 0  #the index of the max info gain 
-        for x in each_category_id:
-            temp = self.InfoGain(self.categories[x],ids_of_categories)
-            if(temp>max):
-                max = temp 
-                i = x
-        #we can try the below and not create the list again 
+        if not (len(each_category_id) == 1):
+            for x in each_category_id:
+                temp = self.InfoGain(self.categories[x],ids_of_reviews)
+                if(temp>max):
+                    max = temp 
+                    i = x
         #entropy_category = [self.InfoGain(self.categories[x],ids_of_categories) for x in each_category_id] 
         max_category = each_category_id[i]
         #max_category = each_category_id[entropy_category.index(max(entropy_category))]
         return self.categories[max_category],max_category 
     def ID3_start(self):
-        #all the possible values for each category, eg 1(worst): 010010100...,2(best):01010010...
-        category_values_ids = [x for x in range(len(self.category_values))]
+        #all the reviews and their respective values for each category 
+        review_values_ids = [x for x in range(len(self.category_values))]
         #unique number for each category, category 1(worst), category 2(best) , category 3 ...
         category_ids = [x for x in range(len(self.categories))]
         #start node 
-        self.node = self.ID3_call(category_values_ids,category_ids,self.node)    
+        self.node = self.ID3_call(review_values_ids,category_ids,self.node)    
     #we need to have these two methods because each time we want to work with a changed category_values_ids and category_ids 
     #we will call ID3_call recursively 
-    def ID3_call(self,category_values_ids,category_ids,node):
+    def ID3_call(self,review_values_ids,category_ids,node):
 
         #if there isn't a starting root node start        
         if not self.node: 
             node = Node() 
         #now if we have the same target values for every category 
-        targets = [self.value_target[x] for x in category_values_ids]
+        targets = [self.value_target[x] for x in review_values_ids]
         #if a word belongs to one class (positive or negative in this case) return the one class 
         if (len(set(targets)) == 1):
-            node.value = self.value_target[category_values_ids[0]] # we don't care that this is the first category since all have the same target value 
+            node.value = self.value_target[review_values_ids[0]] # we don't care that this is the first category since all have the same target value 
             return node
-        #if we don't have more categories to explore return the majority 
-        if len(category_values_ids) == 0 :
+        #if we don't have more reviews to explore return the majority  or we don't have more categories to explore 
+        if len(category_ids) == 0:
             node.value = max(set(targets),key = targets.count)
             return node 
         #choose the word that maximizes the information gain 
-        category_name,category_id = self.GetMaxInfoGain(category_values_ids,category_ids)
+        category_name,category_id = self.GetMaxInfoGain(review_values_ids,category_ids)
         
         #make the value of this node equal to the most IG category
         node.value = category_name
         #we need to create as many node as there are possible instances for each category 
         #we find the values for the max IG category so we can split between the values of the category, EG excellent word split between the reviews that have 0 and 1 as the value for the excellent word
-        category_vals = set([self.category_values[x][category_id] for x in category_values_ids])
+        category_vals = set([self.category_values[x][category_id] for x in review_values_ids])
         for x in category_vals:
             child = Node() 
             child.value = x 
             node.childs.append(child)
             #find all the childs that have the specific value for a category. EG excellent 0 and excellent 1 
-            values_for_child = [value for value in category_values_ids if self.category_values[value][category_id] == x] 
-            if category_ids and category_id in category_ids:#we need to remove the most informational category 
-                remove = category_ids.index(category_id)
-                category_ids.pop(remove)
+            values_for_child = [value for value in review_values_ids if self.category_values[value][category_id] == x] 
+            if not values_for_child:#if there aren't any more reviews to explore return the majority 
+                node.value = max(set(targets),key = targets.count)
+            else: 
+                if category_ids and category_id in category_ids:#we need to remove the most informational category 
+                    remove = category_ids.index(category_id)
+                    category_ids.pop(remove)
                 child.next = self.ID3_call(values_for_child,category_ids,child.next)
         return node 
     def print_tree(self): 
         # because we want to print the tree like BFS we will use a queue and not a stack 
+        print_queue = list()
         if not self.node:
             print("The tree is empty")
             return 
-        self.print_queue.append(self.node)
-        while self.print_queue:
-            if not self.node.childs: 
+        print_queue.append(self.node)
+        while len(print_queue)>0:
+            node = print_queue.pop(0)
+            print(node.value)
+            if not node.childs: 
                 print("No more children are left") 
-                self.print_queue.next 
-            for x in self.node.childs:
-                self.print_queue.append(x)
-            print(self.print_queue.pop(0).value)
+                if(node.next):
+                    print(node.next)
+            else:
+                for x in node.childs:
+                    print("The possibles values of the node are: " + str(x.value))
+                    print_queue.append(x.next)
+            
             
