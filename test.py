@@ -23,6 +23,6 @@ categories = list(training_data_frame.keys())[:x_dim]
 print(categories)
 print(values_for_positiveornegative)
 print(values_for_each_sentence)
-
 p1 = DecisionTree(values_for_each_sentence,categories,values_for_positiveornegative)
 p1.ID3_start()
+p1.print_tree()
