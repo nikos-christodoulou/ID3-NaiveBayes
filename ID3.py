@@ -8,7 +8,7 @@ class Node:
     '''
     def __init__(self):
         self.value = None 
-        self.next = None # next is the category of the next node 
+        self.next = None # next is for a specific value of a category, the category we check next or whether we have a target value  
         self.childs = list() # the childs are the possible values for each category
 
 
