@@ -1,6 +1,8 @@
 from numpy.core.fromnumeric import shape
 from construct_training_examples import training_data_frame
 from ID3 import DecisionTree
+import time
+
 import numpy as np 
 '''
 my_list = ([("the",0),("gay",1),("0",0),("a",1),("l",0),1],[("the",0),("gay",1),("0",0),("a",1),("l",0),0])
@@ -23,6 +25,7 @@ categories = list(training_data_frame.keys())[:x_dim]
 print(categories)
 print(values_for_positiveornegative)
 print(values_for_each_sentence)
+
 p1 = DecisionTree(values_for_each_sentence,categories,values_for_positiveornegative)
 p1.ID3_start()
-p1.print_tree()
+p1.print_tree(p1.node,p1.COUNT)

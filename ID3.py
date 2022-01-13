@@ -13,7 +13,7 @@ class Node:
         self.next = None # next is for a specific value of a category, the category we check next or whether we have a target value  
         self.childs = list() # the childs are the possible values for each category
         self.isChild = False
-
+        self.parent_value = None 
 
 class DecisionTree: 
     '''
@@ -30,6 +30,8 @@ class DecisionTree:
         self.approximate = True # use the approximation for the logarithms   
         self.ln = log(2)
         self.recursion_stack = list() 
+        self.COUNT = 10
+        self.final_tree = list()
     def calculate_entropy(self,ids_of_reviews):
         #find the target value for each category contained in the ids of reviews 
         #each time we'll have different reviews, EG when we have the word excellent present 
@@ -162,26 +164,30 @@ class DecisionTree:
                             remove = category_ids.index(category_id)
                             category_ids.pop(remove)
                         child.next = Node()
+                        child.next.parent_value = child.value
                         self.recursion_stack.append((values_for_child,list(category_ids),child.next))
         self.node = root     
 
-    def print_tree(self): 
+    def print_tree(self,node,space): 
         # because we want to print the tree like BFS we will use a queue and not a stack 
-        print_queue = list()
-        if not self.node:
-            print("The tree is empty")
+       
+        
+        if(node == None):
             return 
-        print_queue.append(self.node)
-        while len(print_queue)>0:
-            node = print_queue.pop(0)
-            print(node.value)
-            if not node.childs: 
-                print("No more children are left") 
-                if(node.next):
-                    print(node.next)
-            else:
-                for x in node.childs:
-                    print("The possibles values of the node are: " + str(x.value))
-                    print_queue.append(x.next)
+        space += self.COUNT
+        if(node.isChild): 
+            node = node.next 
+        if (not (node.isChild)) and ((node.childs)):
+            self.print_tree(node.childs[0],space)
+        print()
+        for i in range(self.COUNT,space):
+           print(end = " ")
+        
+        print(str(node.parent_value) + " " + str(node.value))
+        
+        if(node.isChild):
+            node = node.next
+        if (not (node.isChild)) and ((node.childs)):
+            self.print_tree(node.childs[1],space)
             
             
