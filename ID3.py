@@ -167,6 +167,22 @@ class DecisionTree:
                         child.next.parent_value = child.value
                         self.recursion_stack.append((values_for_child,list(category_ids),child.next))
         self.node = root     
+    def predict(self,review_and_words_present,categories,node):
+        '''
+        review_and_words_present should be a numpy vector that has the words of the dictionary that are present
+        in the review.
+        categories has the possible categories taken from the class itself 
+        '''
+        category_id = [x for x in range(len(categories))]
+        while ((node.childs)):
+            index = categories.index(node.value)
+            for x in node.childs:
+                if(x.value == review_and_words_present[index]):
+                    node = x.next 
+                    break
+        prediction = node.value
+        return prediction 
+    
 
     def print_tree(self,node,space): 
         # because we want to print the tree like BFS we will use a queue and not a stack 
@@ -178,8 +194,9 @@ class DecisionTree:
         if(node.isChild): 
             node = node.next 
         if (not (node.isChild)) and ((node.childs)):
-            self.print_tree(node.childs[0],space)
-        print()
+            if(node.childs[0]):
+                self.print_tree(node.childs[0],space)
+        #print()
         for i in range(self.COUNT,space):
            print(end = " ")
         
@@ -188,6 +205,9 @@ class DecisionTree:
         if(node.isChild):
             node = node.next
         if (not (node.isChild)) and ((node.childs)):
-            self.print_tree(node.childs[1],space)
+            if(len(node.childs) == 2):
+                self.print_tree(node.childs[1],space)
+            else:
+                self.print_tree(node.childs[0],space)
             
             
