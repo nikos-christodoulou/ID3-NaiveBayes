@@ -1,7 +1,7 @@
-import InformationGain
+
 from math import log
 from itertools import combinations 
-import time 
+
 class Node:
     '''
     Contains the data for the specific node 
@@ -21,13 +21,13 @@ class DecisionTree:
     It needs to take the categories,the values for each category and the 
     target values 
     '''
-    def __init__(self,values_of_categories,categories,positive_or_negative):
+    def __init__(self,values_of_categories,categories,positive_or_negative,approximate = True):
         self.node = None 
         self.category_values = values_of_categories # for each review the words present in that review, this is a two dimensional array where the rows are the values for each category for that specific review  
         self.categories = categories # the names of all the words  , this is a 1 dimension list will all the categories names
         self.value_target = positive_or_negative # whether a review is positive or negative, this is a 1 dimension np array which is the same length as the columns of the category values array
         self.value_target_set = list(set(self.value_target))     
-        self.approximate = True # use the approximation for the logarithms   
+        self.approximate = approximate # use the approximation for the logarithms   
         self.ln = log(2)
         self.recursion_stack = list() 
         self.COUNT = 10
@@ -169,17 +169,28 @@ class DecisionTree:
         self.node = root     
     def predict(self,review_and_words_present,categories,node):
         '''
-        review_and_words_present should be a numpy vector that has the words of the dictionary that are present
+        review_and_words_present should be a numpy vector or a plain list that has the words of the dictionary that are present
         in the review.
         categories has the possible categories taken from the class itself 
         '''
-        category_id = [x for x in range(len(categories))]
-        while ((node.childs)):
+        
+        while not (len(node.childs) == 0):
             index = categories.index(node.value)
-            for x in node.childs:
-                if(x.value == review_and_words_present[index]):
-                    node = x.next 
-                    break
+            flag = False
+            if(len(node.childs) == 2):
+                for x in node.childs:
+                    if(x.value == review_and_words_present[index]):
+                        node = x.next 
+                        break
+            else:# some nodes have one child 
+                for x in node.childs:
+                    if(x.value == review_and_words_present[index]):
+                            node = x.next 
+                            break
+                    elif not (flag): 
+                            flag = True 
+                if(flag):
+                    break 
         prediction = node.value
         return prediction 
     
