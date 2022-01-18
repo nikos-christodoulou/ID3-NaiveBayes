@@ -12,13 +12,16 @@ class LogisticRegression:
     Our algorithm needs a learning rate, the max_number of iterations(epochs),
     the weight and bias.
     """
-    def __init__(self, learning_rate = 0.01, w = 0, b = 0, max_epochs = 100):
+    def __init__(self, learning_rate = 0.01, w = 0, max_epochs = 100, l = 1):
         self.learing_rate = learning_rate
         self.max_epochs = max_epochs
         self.w = w
-        self.b = b
+        #this is our regularalization factor
+        self.l = l
         #used to store the loss
         self.likelihoods = []
+        self.proba1 = list()
+        self.proba0 = list()
         #instead of log(0)
         self.eps = 1e-7
 
@@ -31,10 +34,15 @@ class LogisticRegression:
     # y_pred is the predicted value
     # returns a numpy array of predicted values
     # for each element of our data
+    
 
-    def y_pred(self, data, w, b):
-
-        return np.array([self.sigmoid(w + b * x) for x in data])
+    def y_pred(self, data):
+        z = np.dot(data, self.w)
+        if (data[1] == 1):
+            self.proba1.append(self.sigmoid(z))
+        else:
+            self.proba0.append(1 - self.sigmoid(z))
+    
         
     
     '''    
@@ -47,14 +55,14 @@ class LogisticRegression:
         
         #y is a numpy array of our actual values
         #y_pred is a numpy array of the predicted values
-
+        
         #we might have a problem with log(0)
         #so instead of 0 it takes the minimum value assigned to self.eps
         y_pred = np.maximum(np.full(y_pred.shape, self.eps), np.minimum(np.fully(y_pred.shape, 1-self.eps), y_pred))
 
         loss = sum(y * np.log(y_pred) + (1-y) * np.log(1-y_pred))   #return np.array([-np.mean(y*(np.log(y_pred)) - (1-y) * np.log(1 - y_pred)) for x in data])
         #in descent we would substract instead of adding the values
-        return loss
+        return np.mean(loss)
 
         
 
@@ -65,10 +73,10 @@ class LogisticRegression:
     def train(self, data, y):
         
         #we first normalize the data
-        data = self.normalize(data)
+        #data = self.normalize(data)
 
-        #initialize weight and bias
-        self.w, self.b = np.zeros(data.shape[1])
+        #initialize weight
+        self.w = np.zeros(data.shape[1])
 
         '''
         we need to find the number of iterations(epochs)
@@ -78,35 +86,29 @@ class LogisticRegression:
         for epoch in range(self.epochs):
             #calculating the predicted value for all the elements in data
             
-            #y_hat = y_hat(data, w, b)
-            y_pred = y_pred(self, data, self.w, self.b)
+            z = np.dot(data, self.w)
+            y_pred = self.sigmoid(z)
+            #partial derivative with respect to weight
+            dw = -2 * sum((y - y_pred) * y_pred * ( 1- y_pred))
 
-            dw = -2 * sum((y - y_pred) * y_pred * ( 1- y_pred))	        #partial derivative with respect to weight
-            db = -2 * sum((y - y_pred) * y_pred * (1 - y_pred) * data) 	#partial derivative with respect to bias
-
-            # update the values of weight and bias
-            # w and b are first initialized with 0 globally
-            # L controls how much w and b are updated
+            # update the values of weight
+            # w is first initialized with 0 globally
+            # learning rate controls how much w is updated
             self.w = self.w + self.learing_rate * dw
-            self.b = self.b + self.learing_rate * db 
+            
+            loss = self.log_likelihood(y, y_pred)
+            #Regularization
+            loss = loss - self.l * np.pow(self.w, 2)
 
-        loss = self.log_likelihood(y, y_pred)
-        self.likelihoods.append(loss)
-        return self.w, self.b 
-
-
-    # This function is used to normalize our data
-    def normalize(data):
+            self.likelihoods.append(loss)
         
-        return data - data.mean()
         
             
 
     def predict(self, data, threshold = 0.5):
 
-        x = self.normalize(data)
         #returns a numpy arraylist with the predicted binary probabilty value of each element in our data
-        binary_preds = np.array(list(map(lambda x: 1 if x > threshold else 0, self.y_pred(data, self.w, self.b))))
+        binary_preds = np.array(list(map(lambda x: 1 if x > threshold else 0, self.y_pred(data, self.w))))
         return binary_preds
        
 
