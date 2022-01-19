@@ -3,6 +3,7 @@ import numpy as np
 #import matplotlib.pyplot as plt
 import os
 from filter_the_vocabulary import vocabulary
+from construct_training_examples import training_data_frame
 
 #path = "C:/Users/fotis/OneDrive/Desktop/Aiexercise2/aclImdb/train/" + i 
 
@@ -10,7 +11,7 @@ from filter_the_vocabulary import vocabulary
 class LogisticRegression:
     """
     Our algorithm needs a learning rate, the max_number of iterations(epochs),
-    the weight and bias.
+    the weight and the lambda factor for regularization.
     """
     def __init__(self, learning_rate = 0.01, w = 0, max_epochs = 100, l = 1):
         self.learing_rate = learning_rate
@@ -33,18 +34,29 @@ class LogisticRegression:
 
     # y_pred is the predicted value
     # returns a numpy array of predicted values
-    # for each element of our data
+    # for each element based on our training data
     
 
     def y_pred(self, data):
+        #note that they_pred value is not the final 
+        #binary value of our prediction, but the real number
+        #between [0, 1] that is calculated by the sigmoid function.
+
+        #data has to be a vector in order to calculate the dot product.
+        '''
         z = np.dot(data, self.w)
-        if (data[1] == 1):
+        if (data[["positive_or_negative"]] == 1):
             self.proba1.append(self.sigmoid(z))
         else:
             self.proba0.append(1 - self.sigmoid(z))
+        '''
+        z = np.dot(data.iloc[:, -1], self.w)
+        if (data[["positive_or_negative"]] == 1):
+            return self.sigmoid(z)
+        else: 
+            return 1 - self.sigmoid(z)    
     
         
-    
     '''    
     in gradient ascent we need to maximize
     the loss function. This loss in gradient ascent
@@ -76,7 +88,7 @@ class LogisticRegression:
         #data = self.normalize(data)
 
         #initialize weight
-        self.w = np.zeros(data.shape[1])
+        #self.w = np.zeros(data.shape[1])
 
         '''
         we need to find the number of iterations(epochs)
@@ -86,7 +98,7 @@ class LogisticRegression:
         for epoch in range(self.epochs):
             #calculating the predicted value for all the elements in data
             
-            z = np.dot(data, self.w)
+            z = np.dot(data.iloc[:, -1], self.w)
             y_pred = self.sigmoid(z)
             #partial derivative with respect to weight
             dw = -2 * sum((y - y_pred) * y_pred * ( 1- y_pred))
@@ -121,9 +133,11 @@ class LogisticRegression:
         
         print("Accuracy = {}").format(accuracy / len(predicted_data) * 100)
 
-'''
+
 # Implementing the algorithm
 
+data_train = training_data_frame[:, -1]
 
-'''
+
+
 
