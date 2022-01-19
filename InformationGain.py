@@ -1,7 +1,7 @@
 import math 
 import time
 from itertools import combinations
-approximate = True # if we want to approximate the logs 
+approximate = False # if we want to approximate the logs 
 ln = math.log(2)
 def Entropy(pos,neg):
     if(pos <= 0 or neg <= 0):
