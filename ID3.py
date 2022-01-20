@@ -1,7 +1,7 @@
 
 from math import log
 from itertools import combinations 
-
+from collections import Counter
 class Node:
     '''
     Contains the data for the specific node 
@@ -14,6 +14,8 @@ class Node:
         self.childs = list() # the childs are the possible values for each category
         self.isChild = False
         self.parent_value = None 
+        self.parent_node = None
+        self.created = False
 
 class DecisionTree: 
     '''
@@ -32,6 +34,8 @@ class DecisionTree:
         self.recursion_stack = list() 
         self.COUNT = 10
         self.final_tree = list()
+        self.temp_count = 0
+        self.problem = False
     def calculate_entropy(self,ids_of_reviews):
         #find the target value for each category contained in the ids of reviews 
         #each time we'll have different reviews, EG when we have the word excellent present 
@@ -149,6 +153,20 @@ class DecisionTree:
                 #we need to create as many node as there are possible instances for each category 
                 #we find the values for the max IG category so we can split between the values of the category, EG excellent word split between the reviews that have 0 and 1 as the value for the excellent word
                 category_vals = set([self.category_values[x][category_id] for x in review_values_ids])
+                '''
+                DEBUG
+                if(len(category_vals) == 1):
+                    temp = node 
+                    while temp.parent_node:
+                        print(temp.parent_value)
+                        temp = temp.parent_node
+                        print(temp.value)
+                    for x in review_values_ids:
+                        print((self.category_values[x][category_id],category_name))
+                    
+                '''
+                if(len(category_vals) == 1):
+                    self.problem = True
                 for x in category_vals:
                     #create the childs with the category vals 
                     child = Node() 
@@ -164,9 +182,66 @@ class DecisionTree:
                             remove = category_ids.index(category_id)
                             category_ids.pop(remove)
                         child.next = Node()
+                        child.next.parent_node = node
                         child.next.parent_value = child.value
                         self.recursion_stack.append((values_for_child,list(category_ids),child.next))
+                
         self.node = root     
+    
+    def before_predict(self,node):
+        '''
+        if category_vals only have one value then the algorithm won't be able to answer for some reviews 
+        this can happen in the case where in the training data [1,1,0,1] there aren't any vectors of the form [1,1,1,1] but the test data has vectors like this
+        we will add a child node artificially by predicting the value that the node would have if it had the child value 
+        '''
+        stack = list()
+        temp_node = node 
+        stack.append(temp_node)
+        while not (len(stack) == 0): 
+            temp_node = stack.pop()
+            if(len(temp_node.childs) == 1):
+                x = temp_node.childs[0]
+                if(x.isChild):
+                    if(x.value == 0):
+                        child = Node()
+                        child.value = 1 
+                        child.isChild = True
+                        temp_node.childs.append(child)
+                        child.next = Node() 
+                        child.next.parent_node = node
+                        child.next.parent_value = child.value
+                        child.next.created = True
+                        child.next.value = self.prediction_for_one_child_categories(child.next.parent_node)
+                    else:
+                        child = Node()
+                        child.value = 0 
+                        child.isChild = True
+                        temp_node.childs.insert(0,child)
+                        child.next = Node() 
+                        child.next.created = True
+                        child.next.parent_node = node
+                        child.next.parent_value = child.value
+                        child.next.value = self.prediction_for_one_child_categories(child.next.parent_node)
+            for x in temp_node.childs:
+                stack.append(x.next)
+        self.node = node
+    def prediction_for_one_child_categories(self,parent_node):
+        '''
+        Search all of the children of the parent node and return the majority value 
+        '''
+        value_list = list() 
+        stack = list() 
+        stack.append(parent_node)
+        while not (len(stack) == 0):
+            temp_node = stack.pop()
+            if (len(temp_node.childs) == 0) and temp_node.value != None:
+                value_list.append(temp_node.value)
+            else:
+                for x in temp_node.childs:
+                    stack.append(x.next)
+        c = Counter(value_list)    
+        value,count = c.most_common()[0]
+        return value
     def predict(self,review_and_words_present,categories,node):
         '''
         review_and_words_present should be a numpy vector or a plain list that has the words of the dictionary that are present
@@ -182,15 +257,6 @@ class DecisionTree:
                     if(x.value == review_and_words_present[index]):
                         node = x.next 
                         break
-            else:# some nodes have one child 
-                for x in node.childs:
-                    if(x.value == review_and_words_present[index]):
-                            node = x.next 
-                            break
-                    elif not (flag): 
-                            flag = True 
-                if(flag):
-                    break 
         prediction = node.value
         return prediction 
     
@@ -211,6 +277,8 @@ class DecisionTree:
         for i in range(self.COUNT,space):
            print(end = " ")
         
+        if(node.value == "bad"):
+            print("hey")
         print(str(node.parent_value) + " " + str(node.value))
         
         if(node.isChild):

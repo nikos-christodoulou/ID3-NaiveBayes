@@ -1,4 +1,4 @@
-from test import p1 
+from train import p1 
 import os,process_text
 import pandas as pd 
 import numpy as np
@@ -28,3 +28,4 @@ for x in range(0,len(values_for_each_sentence)):
     if(values_for_positiveornegative[x] != value):
         count_wrong = count_wrong + 1
 print(count_wrong)
+print(p1.temp_count)

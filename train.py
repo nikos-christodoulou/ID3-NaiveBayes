@@ -1,9 +1,9 @@
-from numpy.core.fromnumeric import shape
-from construct_training_examples import training_data_frame
+from construct_training_examples import training_data_frame,vocabulary
 from ID3 import DecisionTree
-import time
-
 import numpy as np 
+import pandas as pd 
+import os,process_text
+
 # we use np array for handling two dimensional arrays better
 values_for_each_sentence = np.array(training_data_frame.drop('positive_or_negative',axis=1)).copy()
 values_for_positiveornegative = np.array(training_data_frame["positive_or_negative"]).copy()
@@ -16,6 +16,6 @@ print(values_for_each_sentence)
 
 p1 = DecisionTree(values_for_each_sentence,categories,values_for_positiveornegative)
 p1.ID3_start()
-p1.print_tree(p1.node,p1.COUNT)
-#prediction = p1.predict(np.array([0,0,0,1,1]),p1.categories,p1.node)
-#print(prediction)
+if(p1.problem):
+    p1.before_predict(p1.node)
+#p1.print_tree(p1.node,p1.COUNT)
