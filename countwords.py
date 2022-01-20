@@ -1,5 +1,5 @@
 from collections import Counter 
-import os
+import os,process_text
  
 path = "C:/Users/fotis/OneDrive/Desktop/Aiexercise2/aclImdb"
 
@@ -20,10 +20,9 @@ negative = list()
 positive = list()
 for i in folders:
     #this will be the folder path for the positives and the negatives
-    path = "C:/Users/fotis/OneDrive/Desktop/Aiexercise2/aclImdb/train/" + i 
-    #this will change the directory 
-    os.chdir(path)
     
+    path = "C:/Users/fotis\OneDrive/Desktop/exer2AI/Aiexercise2/aclImdb/train/" + i
+    os.chdir(path)
     print("This checks " + i)
     
 
@@ -31,16 +30,7 @@ for i in folders:
     count = 0
     for file in os.listdir(): 
         # check the text format 
-        if file.endswith(".txt"):
-            file_path = f"{path}/{file}"
-        f = open(file_path,'r',encoding="latin-1")
-        sentence = f.read()
-        #removing special characters so the vocabulary can represent tha data set better 
-        sentence = sentence.translate({ord(c): None for c in '().!@#$***'})
-        sentence = sentence.lower()
-        sentence = sentence.replace("<br />"," ")
-        #we count the occurances for each word in each text file 
-        splited_sentence = sentence.split() 
+        splited_sentence = process_text.split_sentence(file,path)
         Countervariable = Counter(splited_sentence)
         most_occurred_words = Countervariable.most_common()
         if(i == 'neg'):
@@ -49,7 +39,6 @@ for i in folders:
         else:
             positive.extend(most_occurred_words)
             positive_reviews = positive_reviews + 1
-        f.close()
 for x in negative: 
     #if word is not in vocabulary create new entry 
     if(not(x[0] in vocabulary)):
