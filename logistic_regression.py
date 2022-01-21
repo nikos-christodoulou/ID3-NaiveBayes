@@ -2,8 +2,8 @@ import pandas as pd
 import numpy as np
 #import matplotlib.pyplot as plt
 import os
-from filter_the_vocabulary import vocabulary
-from construct_training_examples import training_data_frame
+from preprocessing.filter_the_vocabulary import vocabulary
+from preprocessing.construct_training_examples import training_data_frame
 
 #path = "C:/Users/fotis/OneDrive/Desktop/Aiexercise2/aclImdb/train/" + i 
 

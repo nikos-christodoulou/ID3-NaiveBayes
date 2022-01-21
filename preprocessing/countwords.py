@@ -1,6 +1,6 @@
 from collections import Counter 
-import os,process_text
- 
+import os,process_text as process_text
+
 path = "C:/Users/fotis/OneDrive/Desktop/Aiexercise2/aclImdb"
 
 #read text file 

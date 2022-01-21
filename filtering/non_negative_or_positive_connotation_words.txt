@@ -171,6 +171,7 @@ shot
 promo
 take
 extra
+performances
 bit part
 director
 subminiature

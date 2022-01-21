@@ -1,7 +1,9 @@
 from filter_the_vocabulary import vocabulary
-import os,random,process_text,math
+import os,random,process_text as process_text,math
+from hyperparameters import per
 import pandas as pd 
 import numpy as np
+import time 
 folders = ['neg','pos']
 training_vector = dict()
 '''
@@ -9,21 +11,24 @@ We will create a binary vector with 1 if the word in the dictionary is present i
 else the value will be 0 if it's not contained in the word 
 this will be a pandas dataframe 
 ''' 
-percentage_of_data = math.ceil(90/100 * 12500) 
-per = True 
+percentage_of_data = math.ceil(per * 12500) 
+percentage = True
+if(per == 1):
+    percentage = False 
 training_data_frame = pd.DataFrame()
-
+already_selected = list()
 for i in folders:
-<<<<<<< HEAD
+
     path = "C:/Users/fotis\OneDrive/Desktop/exer2AI/Aiexercise2/aclImdb/train/" + i
-=======
-    #path = "C:/Users/fotis/OneDrive/Desktop/Aiexercise2/aclImdb/train/" + i 
-    path = "C:/Users/Nicko/Downloads/aclimdb/train/" + i
->>>>>>> 2602633e95094de8e277b48716baf99d9dbae9f3
     os.chdir(path)
-    if(per):
-        for y in range(0,percentage_of_data):
+    if(percentage):
+        file = random.choice(os.listdir())
+        already_selected.append(file)
+        for y in range(0,percentage_of_data-1):
             file = random.choice(os.listdir())
+            while(file in already_selected):
+                file = random.choice(os.listdir())
+            already_selected.append(file)
             splited_sentence = process_text.split_sentence(file,path)
             for key in vocabulary:
                 process_text.add_key(key,training_vector,splited_sentence)
@@ -37,14 +42,5 @@ for i in folders:
         
 
 training_data_frame = pd.DataFrame(training_vector)
-#print(training_data_frame)
-#print(training_data_frame[["positive_or_negative"]])
 
-#now saving training data to an external text file
 
-#np.savetxt("C:/Users/Nicko/Downloads/aclimdb/training_examples.txt", training_data_frame.values, fmt='%d', delimiter="\t", header="X\tY\tZ\tpositive_or_negative")
-#file_training_data = open(r"C:/Users/Nicko/Downloads/aclimdb/training_examples.txt", 'w') 
-#for i in range(len(training_data_frame)):
-#    file_training_data.writelines(training_data_frame.to_string())
- 
-        

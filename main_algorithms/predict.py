@@ -1,8 +1,8 @@
-from train import p1 
-import os,process_text
+from main_algorithms.train_id3 import p1 
+import os,preprocessing.process_text as process_text
 import pandas as pd 
 import numpy as np
-from filter_the_vocabulary import vocabulary
+from preprocessing.filter_the_vocabulary import vocabulary
 folders = ['neg','pos']
 training_vector = dict()
 count_wrong = 0 
@@ -28,4 +28,3 @@ for x in range(0,len(values_for_each_sentence)):
     if(values_for_positiveornegative[x] != value):
         count_wrong = count_wrong + 1
 print(count_wrong)
-print(p1.temp_count)

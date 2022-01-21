@@ -23,7 +23,7 @@ class DecisionTree:
     It needs to take the categories,the values for each category and the 
     target values 
     '''
-    def __init__(self,values_of_categories,categories,positive_or_negative,approximate = True):
+    def __init__(self,values_of_categories,categories,positive_or_negative,approximate = False):
         self.node = None 
         self.category_values = values_of_categories # for each review the words present in that review, this is a two dimensional array where the rows are the values for each category for that specific review  
         self.categories = categories # the names of all the words  , this is a 1 dimension list will all the categories names
@@ -34,7 +34,6 @@ class DecisionTree:
         self.recursion_stack = list() 
         self.COUNT = 10
         self.final_tree = list()
-        self.temp_count = 0
         self.problem = False
     def calculate_entropy(self,ids_of_reviews):
         #find the target value for each category contained in the ids of reviews 
@@ -153,18 +152,6 @@ class DecisionTree:
                 #we need to create as many node as there are possible instances for each category 
                 #we find the values for the max IG category so we can split between the values of the category, EG excellent word split between the reviews that have 0 and 1 as the value for the excellent word
                 category_vals = set([self.category_values[x][category_id] for x in review_values_ids])
-                '''
-                DEBUG
-                if(len(category_vals) == 1):
-                    temp = node 
-                    while temp.parent_node:
-                        print(temp.parent_value)
-                        temp = temp.parent_node
-                        print(temp.value)
-                    for x in review_values_ids:
-                        print((self.category_values[x][category_id],category_name))
-                    
-                '''
                 if(len(category_vals) == 1):
                     self.problem = True
                 for x in category_vals:
@@ -260,7 +247,8 @@ class DecisionTree:
         prediction = node.value
         return prediction 
     
-
+    '''
+    DEBUG
     def print_tree(self,node,space): 
         # because we want to print the tree like BFS we will use a queue and not a stack 
        
@@ -288,5 +276,5 @@ class DecisionTree:
                 self.print_tree(node.childs[1],space)
             else:
                 self.print_tree(node.childs[0],space)
-            
+    '''        
             
