@@ -4,12 +4,11 @@ from ID3 import DecisionTree
 import numpy as np 
 import pandas as pd 
 from hyperparameters import per,approximate_logs,number_of_vocab_words
-from main_algorithms.read_train_files import create_vectors
 import read_train_files
 
 
-cat_and_rev = read_train_files(per,approximate_logs,number_of_vocab_words)
-t = create_vectors(cat_and_rev)
+cat_and_rev = read_train_files.read_file(per,number_of_vocab_words,approximate_logs)
+t = read_train_files.create_vectors(cat_and_rev)
 categories = t[0]
 values_for_each_sentence = t[1]
 values_for_positiveornegative = t[2]
