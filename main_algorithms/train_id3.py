@@ -13,7 +13,7 @@ categories = t[0]
 values_for_each_sentence = t[1]
 values_for_positiveornegative = t[2]
 
-p1 = DecisionTree(values_for_each_sentence,categories,values_for_positiveornegative)
+p1 = DecisionTree(values_for_each_sentence,categories,values_for_positiveornegative,approximate_logs)
 p1.ID3_start()
 if(p1.problem):
     p1.before_predict(p1.node)

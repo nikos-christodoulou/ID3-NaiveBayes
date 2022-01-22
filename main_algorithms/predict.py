@@ -2,8 +2,9 @@ from train_id3 import p1,categories
 import os,process_text 
 import pandas as pd 
 import numpy as np
-
+from hyperparameters import per,number_of_vocab_words,approximate_logs
 folders = ['neg','pos']
+example_folders = ['train','test']
 training_vector = dict()
 count_wrong = 0 
 for i in folders:
@@ -25,6 +26,7 @@ true_positives = 0
 false_positives = 0 
 false_negatives = 0 
 total_number = len(values_for_each_sentence)
+print("Total reviews: " + str(total_number))
 for x in range(0,len(values_for_each_sentence)):
     y = values_for_each_sentence[x]
     value = p1.predict(y,p1.categories,p1.node)
@@ -37,10 +39,27 @@ for x in range(0,len(values_for_each_sentence)):
     if(values_for_positiveornegative[x] == 1 and value == 0):
         false_negatives = false_negatives + 1 
 accuracy = 1 - count_wrong/total_number
+error = count_wrong/total_number
 precision = true_positives/(true_positives+false_positives)
 recall = true_positives/(true_positives+false_negatives)
 f_measure = (2*precision*recall)/(precision + recall)
+print("Error: " + str(error))
 print("Accuracy: " + str(1 - count_wrong/total_number))
 print("Precision: " + str(true_positives/(true_positives+false_positives)))
 print("Recall: " + str(true_positives/(true_positives+false_negatives)))
 print("F-measure: " + str((2*precision*recall)/(precision + recall)))
+per = per * 100 
+file_name = "" + str(int(per)) + "_" + "_" + str(approximate_logs) + ".txt"
+file_path = os.path.join("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec_george/",file_name)
+if not os.path.exists("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec_george/"):
+    os.makedirs("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec_george/")
+f = open(file_path,"a")
+f.write(str(per) + " ," + str(accuracy) + " ," + str(precision) + " ," + str(recall) + " ," + str(number_of_vocab_words) + "\n")
+
+
+file_name = "" + str(int(per)) + "_" + "_" + str(approximate_logs) + ".txt"
+file_path = os.path.join("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec/",file_name)
+if not os.path.exists("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec/"):
+    os.makedirs("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec/")
+f = open(file_path,"a")
+f.write(str(per) + " ," + str(accuracy) + " ," + str(precision) + " ," + str(recall) + " ," + str(number_of_vocab_words) + "\n")
