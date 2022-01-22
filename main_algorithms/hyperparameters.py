@@ -4,16 +4,16 @@ import sys ,getopt
 Argument list should be 
 Percentage of training data, approximate logs, number of vocab words, 
 '''
-if len(sys.argv) == 4:     
-    
+if len(sys.argv) == 1:     
+    '''
     per = float(sys.argv[1])/100
     approximate_logs = sys.argv[2] == "True"
     number_of_vocab_words = int(sys.argv[3])
     '''
-    per = 1
+    per = 0.01
     approximate_logs = True
     number_of_vocab_words = 70
-    '''
+    
     
     
     

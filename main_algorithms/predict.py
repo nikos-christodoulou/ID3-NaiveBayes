@@ -27,4 +27,4 @@ for x in range(0,len(values_for_each_sentence)):
     value = p1.predict(y,p1.categories,p1.node)
     if(values_for_positiveornegative[x] != value):
         count_wrong = count_wrong + 1
-print(count_wrong)
+
