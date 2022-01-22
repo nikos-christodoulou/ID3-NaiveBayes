@@ -53,13 +53,16 @@ file_name = "" + str(int(number_of_vocab_words)) + "_" + str(approximate_logs_in
 file_path = os.path.join("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec_george/",file_name)
 if not os.path.exists("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec_george/"):
     os.makedirs("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec_george/")
+
 f = open(file_path,"a")
 f.write(str(per) + "," + str(accuracy) + "," + str(precision) + "," + str(recall) + "," + str(number_of_vocab_words) + "\n")
+f.close()
 
-
-file_name = "" + str(int(per)) + "_" + str(approximate_logs_inside_id3) + ".txt"
+file_name = "" + str(int(number_of_vocab_words)) + "_" + str(approximate_logs_inside_id3) + ".txt"
 file_path = os.path.join("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec/",file_name)
 if not os.path.exists("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec/"):
     os.makedirs("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec/")
+
 f = open(file_path,"a")
 f.write(str(per) + " " + str(accuracy) + " " + str(precision) + " " + str(recall) + " " + str(number_of_vocab_words) + "\n")
+f.close()
