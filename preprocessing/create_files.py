@@ -25,7 +25,7 @@ for x in categories:
 f.write("\n")
 for x in range(0,len(values_for_each_sentence)):
     y = np.array2string(values_for_each_sentence[x],separator=' ',suppress_small=True)
-    y = y.translate({ord(c): None for c in '[]'})
-    f.write(y)
-    f.write(" " + str(values_for_positiveornegative[x]) + "\n")
+    y = y.translate({ord(c): None for c in '[]\n'})
+    f.write(y + " " + str(values_for_positiveornegative[x]) + "\n")
+    
 f.close()

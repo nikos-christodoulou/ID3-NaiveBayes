@@ -1,8 +1,8 @@
-from main_algorithms.train_id3 import p1 
-import os,preprocessing.process_text as process_text
+from train_id3 import p1,categories
+import os,process_text 
 import pandas as pd 
 import numpy as np
-from preprocessing.filter_the_vocabulary import vocabulary
+
 folders = ['neg','pos']
 training_vector = dict()
 count_wrong = 0 
@@ -11,7 +11,7 @@ for i in folders:
     os.chdir(path)
     for file in os.listdir(): 
         splited_sentence = process_text.split_sentence(file,path)
-        for key in vocabulary:
+        for key in categories:
             process_text.add_key(key,training_vector,splited_sentence)
         process_text.add_target_val(training_vector,i)
 
