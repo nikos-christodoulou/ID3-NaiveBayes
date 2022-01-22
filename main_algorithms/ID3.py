@@ -247,8 +247,7 @@ class DecisionTree:
         prediction = node.value
         return prediction 
     
-    '''
-    DEBUG
+    
     def print_tree(self,node,space): 
         # because we want to print the tree like BFS we will use a queue and not a stack 
        
@@ -276,5 +275,5 @@ class DecisionTree:
                 self.print_tree(node.childs[1],space)
             else:
                 self.print_tree(node.childs[0],space)
-    '''        
+            
             
