@@ -264,8 +264,7 @@ class DecisionTree:
         for i in range(self.COUNT,space):
            print(end = " ")
         
-        if(node.value == "bad"):
-            print("hey")
+        
         print(str(node.parent_value) + " " + str(node.value))
         
         if(node.isChild):
