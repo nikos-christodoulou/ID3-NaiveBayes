@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
-#import matplotlib.pyplot as plt
 import os
-from preprocessing.filter_the_vocabulary import vocabulary
-from preprocessing.construct_training_examples import training_data_frame
+import main_algorithms.read_train_files
+#from preprocessing.filter_the_vocabulary import vocabulary
+#from preprocessing.construct_training_examples import training_data_frame
 
 #path = "C:/Users/fotis/OneDrive/Desktop/Aiexercise2/aclImdb/train/" + i 
 
@@ -13,7 +13,7 @@ class LogisticRegression:
     Our algorithm needs a learning rate, the max_number of iterations(epochs),
     the weight and the lambda factor for regularization.
     """
-    def __init__(self, learning_rate = 0.01, w = 0, max_epochs = 100, l = 1):
+    def __init__(self, learning_rate = 0.01, w = 0, max_epochs = 300, l = 1):
         self.learing_rate = learning_rate
         self.max_epochs = max_epochs
         self.w = w
@@ -30,10 +30,10 @@ class LogisticRegression:
         
 
     def sigmoid(self, x):
-        return 1/(np.exp(-x) + 1)
+        return 1.0/(np.exp(-x) + 1)
 
-    # y_pred is the predicted value
-    # returns a numpy array of predicted values
+    # y_pred is used for the predicted value
+    # returns a numpy array of predicted values between 0-1
     # for each element based on our training data
     
 
@@ -50,11 +50,17 @@ class LogisticRegression:
         else:
             self.proba0.append(1 - self.sigmoid(z))
         '''
-        z = np.dot(data.iloc[:, -1], self.w)
-        if (data[["positive_or_negative"]] == 1):
-            return self.sigmoid(z)
-        else: 
-            return 1 - self.sigmoid(z)    
+
+        y_pred = np.zeros(data[2].shape[0], dtype=float)
+        for i in range(data[2].shape[0]):
+            z = np.dot(data[1][i], self.w.T)
+            if data[2][i] == 1:
+                y_pred[i] = self.sigmoid(float(z))
+            else:
+                y_pred[i] = 1 - self.sigmoid(z)
+
+        return y_pred         
+              
     
         
     '''    
@@ -70,11 +76,12 @@ class LogisticRegression:
         
         #we might have a problem with log(0)
         #so instead of 0 it takes the minimum value assigned to self.eps
-        y_pred = np.maximum(np.full(y_pred.shape, self.eps), np.minimum(np.fully(y_pred.shape, 1-self.eps), y_pred))
+
+        #y_pred = np.maximum(np.full(y_pred.shape, self.eps), np.minimum(np.fully(y_pred.shape, 1-self.eps), y_pred))
 
         loss = sum(y * np.log(y_pred) + (1-y) * np.log(1-y_pred))   #return np.array([-np.mean(y*(np.log(y_pred)) - (1-y) * np.log(1 - y_pred)) for x in data])
         #in descent we would substract instead of adding the values
-        return np.mean(loss)
+        return loss
 
         
 
@@ -88,35 +95,51 @@ class LogisticRegression:
         #data = self.normalize(data)
 
         #initialize weight
-        #self.w = np.zeros(data.shape[1])
-
+        
+        self.w = np.zeros(data[0].shape[0])
         '''
         we need to find the number of iterations(epochs)
-        for the stohastic gradient ascent algorithm and maximize the cost 
+        for the stochastic gradient ascent algorithm and maximize the log_likelihood
         '''
+        
         #finding the gradients
-        for epoch in range(self.epochs):
+        
+        for epoch in range(self.max_epochs):
             #calculating the predicted value for all the elements in data
+            iter = 0
+            pred = self.y_pred(data)
             
-            z = np.dot(data.iloc[:, -1], self.w)
-            y_pred = self.sigmoid(z)
             #partial derivative with respect to weight
-            dw = -2 * sum((y - y_pred) * y_pred * ( 1- y_pred))
 
+            
+
+            dw = np.array([ (y[i] - pred[i]) * data[1][i] for i in range(data[1].shape[0])])
+            print("dw = ", dw)
+            #dw = sum((y - pred) * data[1])
             # update the values of weight
             # w is first initialized with 0 globally
             # learning rate controls how much w is updated
             self.w = self.w + self.learing_rate * dw
             
-            loss = self.log_likelihood(y, y_pred)
-            #Regularization
-            loss = loss - self.l * np.pow(self.w, 2)
+            loss = self.log_likelihood(y, pred)
+            print("loss = ", loss)            #Regularization
+            loss = loss + self.l * sum(np.power(self.w, 2))
+            
+            print("GOOD")
 
             self.likelihoods.append(loss)
+
+            #checks if the likelihood is getting close to max
+            #trying to maximize the cost for the stochastic gradient ascent
+            if iter > 0:
+                if (self.likelihoods[iter -1] > self.likelihoods[iter]):
+                    break
+            iter = iter + 1
+        
+        return self.w
         
         
             
-
     def predict(self, data, threshold = 0.5):
 
         #returns a numpy arraylist with the predicted binary probabilty value of each element in our data
@@ -127,17 +150,14 @@ class LogisticRegression:
 
     def calculate_accuracy(actual_data, predicted_data):
         accuracy = 0
-        for i in range(len(predicted_data)):
-            if actual_data[i] == predicted_data[i]:
+        wrong_preds = 0
+        for x in predicted_data:
+            if x[["postitive_or_negative"]] == actual_data[["positive_or_negative"]]:
                 accuracy +=1
+            else:
+                wrong_preds +=1 
         
         print("Accuracy = {}").format(accuracy / len(predicted_data) * 100)
-
-
-# Implementing the algorithm
-
-data_train = training_data_frame[:, -1]
-
-
+        print("There were {} wrong predictions", wrong_preds)
 
 
