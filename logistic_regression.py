@@ -2,8 +2,9 @@ import pandas as pd
 import numpy as np
 #import matplotlib.pyplot as plt
 import os
-from preprocessing.filter_the_vocabulary import vocabulary
-from preprocessing.construct_training_examples import training_data_frame
+import main_algorithms.read_train_files
+#from preprocessing.filter_the_vocabulary import vocabulary
+#from preprocessing.construct_training_examples import training_data_frame
 
 #path = "C:/Users/fotis/OneDrive/Desktop/Aiexercise2/aclImdb/train/" + i 
 
@@ -13,7 +14,7 @@ class LogisticRegression:
     Our algorithm needs a learning rate, the max_number of iterations(epochs),
     the weight and the lambda factor for regularization.
     """
-    def __init__(self, learning_rate = 0.01, w = 0, max_epochs = 100, l = 1):
+    def __init__(self, learning_rate = 0.001, w = 0, max_epochs = 100, l = 1):
         self.learing_rate = learning_rate
         self.max_epochs = max_epochs
         self.w = w
@@ -30,10 +31,10 @@ class LogisticRegression:
         
 
     def sigmoid(self, x):
-        return 1/(np.exp(-x) + 1)
+        return 1.0/(np.exp(-x) + 1)
 
-    # y_pred is the predicted value
-    # returns a numpy array of predicted values
+    # y_pred is used for the predicted value
+    # returns a numpy array of predicted values between 0-1
     # for each element based on our training data
     
 
@@ -50,11 +51,11 @@ class LogisticRegression:
         else:
             self.proba0.append(1 - self.sigmoid(z))
         '''
-        z = np.dot(data.iloc[:, -1], self.w)
+        z = np.dot(data, self.w)
         if (data[["positive_or_negative"]] == 1):
             return self.sigmoid(z)
         else: 
-            return 1 - self.sigmoid(z)    
+            return 1.0 - self.sigmoid(z)    
     
         
     '''    
@@ -88,20 +89,22 @@ class LogisticRegression:
         #data = self.normalize(data)
 
         #initialize weight
-        #self.w = np.zeros(data.shape[1])
+        self.w = np.zeros(data.shape[1])
 
         '''
         we need to find the number of iterations(epochs)
-        for the stohastic gradient ascent algorithm and maximize the cost 
+        for the stochastic gradient ascent algorithm and maximize the log_likelihood
         '''
+        
         #finding the gradients
+        
         for epoch in range(self.epochs):
             #calculating the predicted value for all the elements in data
+            iter = 0
+            y_pred = y_pred(data, self.w)
             
-            z = np.dot(data.iloc[:, -1], self.w)
-            y_pred = self.sigmoid(z)
             #partial derivative with respect to weight
-            dw = -2 * sum((y - y_pred) * y_pred * ( 1- y_pred))
+            dw = sum((y - y_pred) * y_pred * ( 1- y_pred))
 
             # update the values of weight
             # w is first initialized with 0 globally
@@ -110,9 +113,17 @@ class LogisticRegression:
             
             loss = self.log_likelihood(y, y_pred)
             #Regularization
-            loss = loss - self.l * np.pow(self.w, 2)
+            loss = loss + self.l * np.pow(self.w, 2)
 
             self.likelihoods.append(loss)
+
+            #checks if the likelihood is getting close to max
+            #trying to maximize the cost for the stochastic gradient ascent
+            if iter > 0:
+                if (self.likelihoods[iter -1] > self.likelihoods[iter]):
+                    break
+        
+        return self.w
         
         
             
@@ -127,16 +138,43 @@ class LogisticRegression:
 
     def calculate_accuracy(actual_data, predicted_data):
         accuracy = 0
-        for i in range(len(predicted_data)):
-            if actual_data[i] == predicted_data[i]:
+        wrong_preds = 0
+        for x in predicted_data:
+            if x[["postitive_or_negative"]] == actual_data[["positive_or_negative"]]:
                 accuracy +=1
+            else:
+                wrong_preds +=1 
         
         print("Accuracy = {}").format(accuracy / len(predicted_data) * 100)
+        print("There were {} wrong predictions", wrong_preds)
 
 
 # Implementing the algorithm
+#"C:/Users/Nikos/Desktop/AI/training_examples.txt"
+#train_df = pd.read_csv("C:/Users/Nikos/Desktop/AI/training_examples.txt")
+#print(train_df)
 
-data_train = training_data_frame[:, -1]
+#here we give values to our data
+
+cat_and_rev = main_algorithms.read_train_files.read_file(0.01,10,True)
+
+data = main_algorithms.read_train_files.create_vectors(cat_and_rev)
+
+categories = int(data[0])
+values_for_each_sentence = int(data[1])
+values_positiveornegative = int(data[2])
+model = LogisticRegression()
+
+#train the algorithm
+model.train(data, values_positiveornegative)
+
+#predict the result based on the training data
+predicted_value = model.predict(values_positiveornegative, 0.5)
+
+#see results
+model.calculate_accuracy(values_positiveornegative, predicted_value)
+
+
 
 
 
