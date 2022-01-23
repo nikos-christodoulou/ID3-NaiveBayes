@@ -131,14 +131,10 @@ class DecisionTree:
             #now if we have the same target values for every category 
             targets = [self.value_target[x] for x in review_values_ids]
             #if a word belongs to one class (positive or negative in this case) return the one class 
-            not_one_target_value = True 
-            for x in range(0,len(targets)-1):
-                if(targets[x] != targets[x+1]):
-                    not_one_target_value = False 
-                    break 
+        
                     
-            if(not_one_target_value):
-                node.value = self.value_target[review_values_ids[0]] # we don't care that this is the first category since all have the same target value 
+            if(len(set(targets)) == 1):
+                node.value = self.value_target[review_values_ids[0]] 
             #if we don't have more reviews to explore return the majority  or we don't have more categories to explore 
             elif len(category_ids) == 0:
                 node.value = max(set(targets),key = targets.count)

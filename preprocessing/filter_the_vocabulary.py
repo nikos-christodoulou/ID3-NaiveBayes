@@ -56,4 +56,4 @@ for x in contents:
 positive_word_in_reviews = temp_pos 
 negative_word_in_reviews = temp_neg
 
-#print(vocabulary)
+print(vocabulary)
