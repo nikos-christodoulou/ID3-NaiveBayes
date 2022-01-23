@@ -160,9 +160,9 @@ cat_and_rev = main_algorithms.read_train_files.read_file(0.01,10,True)
 
 data = main_algorithms.read_train_files.create_vectors(cat_and_rev)
 
-categories = int(data[0])
-values_for_each_sentence = int(data[1])
-values_positiveornegative = int(data[2])
+categories = data[0]
+values_for_each_sentence = data[1]
+values_positiveornegative = data[2]
 model = LogisticRegression()
 
 #train the algorithm
