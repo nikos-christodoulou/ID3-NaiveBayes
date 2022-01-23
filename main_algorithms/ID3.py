@@ -133,8 +133,8 @@ class DecisionTree:
             #if a word belongs to one class (positive or negative in this case) return the one class 
         
                     
-            if(set(targets) == 1):
-                node.value = self.value_target[review_values_ids[0]] # we don't care that this is the first category since all have the same target value 
+            if(len(set(targets)) == 1):
+                node.value = self.value_target[review_values_ids[0]] 
             #if we don't have more reviews to explore return the majority  or we don't have more categories to explore 
             elif len(category_ids) == 0:
                 node.value = max(set(targets),key = targets.count)

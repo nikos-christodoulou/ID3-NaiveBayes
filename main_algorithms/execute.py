@@ -2,8 +2,8 @@ import subprocess
 import time 
 b =  [True,False]
 ap = [True,False]
-for p in ap:
-    for z in b:  
+for z in b: 
+    for p in ap:  
          for x in range(1,101):
             for y in range(10,110,10):
                 start = time.time()

@@ -14,7 +14,9 @@ if len(sys.argv) == 5:
     per = 0.01
     approximate_logs = True
     number_of_vocab_words = 70
+    approximate_logs_inside_id3 = False
     '''
+    
     
     
     
