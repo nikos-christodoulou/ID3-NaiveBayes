@@ -2,7 +2,7 @@ from train_id3 import p1,categories
 import os,process_text 
 import pandas as pd 
 import numpy as np
-from hyperparameters import per,number_of_vocab_words,approximate_logs_inside_id3
+from hyperparameters import per,number_of_vocab_words,approximate_logs_inside_id3,approximate_logs
 folders = ['neg','pos']
 example_folders = ['train','test']
 training_vector = dict()
@@ -38,7 +38,7 @@ for x in range(0,len(values_for_each_sentence)):
         false_positives = false_positives + 1 
     if(values_for_positiveornegative[x] == 1 and value == 0):
         false_negatives = false_negatives + 1 
-accuracy = 1 - count_wrong/total_number
+accuracy = 1 - count_wrong/total_number 
 error = count_wrong/total_number
 precision = true_positives/(true_positives+false_positives)
 recall = true_positives/(true_positives+false_negatives)
@@ -50,7 +50,7 @@ print("Recall: " + str(true_positives/(true_positives+false_negatives)))
 print("F-measure: " + str((2*precision*recall)/(precision + recall)))
 per = per * 100 
 file_name = "" + str(int(number_of_vocab_words)) + "_" + str(approximate_logs_inside_id3) + "_" + ".txt"
-file_path = os.path.join("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec_george/",file_name)
+file_path = os.path.join("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec_george/" + str(approximate_logs) + "/",file_name)
 if not os.path.exists("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec_george/"):
     os.makedirs("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec_george/")
 
@@ -59,7 +59,7 @@ f.write(str(per) + "," + str(accuracy) + "," + str(precision) + "," + str(recall
 f.close()
 
 file_name = "" + str(int(number_of_vocab_words)) + "_" + str(approximate_logs_inside_id3) + ".txt"
-file_path = os.path.join("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec/",file_name)
+file_path = os.path.join("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec/" + str(approximate_logs) + "/",file_name)
 if not os.path.exists("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec/"):
     os.makedirs("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec/")
 
