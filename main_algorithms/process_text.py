@@ -5,7 +5,7 @@ def split_sentence(file,path):
     f = open(file_path,'r',encoding="latin-1")
     sentence = f.read()
     #removing special characters so the vocabulary can represent tha data set better 
-    sentence = sentence.translate({ord(c): None for c in '().!@#$***'})
+    sentence = sentence.translate({ord(c): None for c in '().!@#$***,?:-=+'})
     sentence = sentence.lower()
     sentence = sentence.replace("<br />"," ")
     splited_sentence = sentence.split()
