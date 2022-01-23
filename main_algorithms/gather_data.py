@@ -1,1 +1,0 @@
-from predict import precision,recall,f_measure,accuracy
