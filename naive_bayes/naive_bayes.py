@@ -1,7 +1,7 @@
 from operator import index
 import read_train_files 
 import numpy as np 
-cat_and_rev = read_train_files.read_file(0.45,100 ,True)
+cat_and_rev = read_train_files.read_file(0.74,100 ,True)
 t = read_train_files.create_vectors(cat_and_rev)
 categories = t[0]
 dict_values_for_reviews = t[1]
@@ -59,6 +59,8 @@ for x in range(0,len(dict_values_for_reviews)):
     zero_flag = False
     indices_for_one = np.array([])
     indices_for_zero =  np.array([])
+
+'''
 print(each_word_count)
 count_zero = 0 
 count_one = 0 
@@ -82,4 +84,4 @@ for x in categories:
     count_one = 0 
     count_zero_neg = 0 
     count_one_neg = 0 
-    
+'''  
