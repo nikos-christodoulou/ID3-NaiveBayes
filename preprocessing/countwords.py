@@ -1,7 +1,7 @@
 from collections import Counter 
 import os,process_text as process_text
 
-path = "C:/Users/fotis/OneDrive/Desktop/Aiexercise2/aclImdb"
+path = "C:/Users/Nikos/Documents/GitHub/Aiexercise2/aclImdb"
 
 #read text file 
 def read_text_file(file_path):
@@ -21,7 +21,7 @@ positive = list()
 for i in folders:
     #this will be the folder path for the positives and the negatives
     
-    path = "C:/Users/fotis\OneDrive/Desktop/exer2AI/Aiexercise2/aclImdb/train/" + i
+    path = "C:/Users/Nikos/Documents/GitHub/Aiexercise2/aclImdb/train/" + i
     os.chdir(path)
     print("This checks " + i)
     
