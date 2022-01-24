@@ -5,11 +5,13 @@ cat_and_rev = read_train_files.read_file(0.45,100 ,True)
 t = read_train_files.create_vectors(cat_and_rev)
 categories = t[0]
 dict_values_for_reviews = t[1]
+print(len(dict_values_for_reviews))
 target_values = t[2]
+#print(len(target_values)/2)
 # we have in 1 review and the review has specific words of the dictionary [0 0 0 0 0 0 0 1 0 0]
 # with the given values for each word determine whether the review should be 1 or 0 
 #print(categories)
-print(dict_values_for_reviews)
+#print(dict_values_for_reviews)
 #print(target_values)
 count_yes = 0
 count_no = 0
@@ -59,7 +61,17 @@ for x in range(0,len(dict_values_for_reviews)):
     zero_flag = False
     indices_for_one = np.array([])
     indices_for_zero =  np.array([])
-print(each_word_count)
+
+"""
+for x in each_word_count:
+    print("Number of zeros in category {} for positive reviews is {}".format(x, each_word_count[x][0][0]))
+    print("Number of ones in category {} for positive reviews is {}".format(x, each_word_count[x][0][1]))
+    print("Number of zeros in category {} for negative reviews is {}".format(x, each_word_count[x][1][0]))
+    print("Number of ones in category {} for negative reviews is {}".format(x, each_word_count[x][1][1]))
+    print("-------------------------------")
+"""   
+
+
 count_zero = 0 
 count_one = 0 
 count_zero_neg = 0 
