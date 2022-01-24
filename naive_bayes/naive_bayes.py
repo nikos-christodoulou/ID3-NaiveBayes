@@ -1,7 +1,7 @@
 from operator import index
 import read_train_files 
 import numpy as np 
-cat_and_rev = read_train_files.read_file(0.01,100 ,True)
+cat_and_rev = read_train_files.read_file(0.45,100 ,True)
 t = read_train_files.create_vectors(cat_and_rev)
 categories = t[0]
 dict_values_for_reviews = t[1]
