@@ -61,42 +61,5 @@ for x in range(0,len(dict_values_for_reviews)):
     zero_flag = False
     indices_for_one = np.array([])
     indices_for_zero =  np.array([])
-
-
-"""
-for x in each_word_count:
-    print("Number of zeros in category {} for positive reviews is {}".format(x, each_word_count[x][0][0]))
-    print("Number of ones in category {} for positive reviews is {}".format(x, each_word_count[x][0][1]))
-    print("Number of zeros in category {} for negative reviews is {}".format(x, each_word_count[x][1][0]))
-    print("Number of ones in category {} for negative reviews is {}".format(x, each_word_count[x][1][1]))
-    print("-------------------------------")
-"""   
-
-
-
-
-print(each_word_count)
-
-count_zero = 0 
-count_one = 0 
-count_zero_neg = 0 
-count_one_neg = 0 
-for x in categories:
-    for y in range(len(dict_values_for_reviews)):
-        if(target_values[y] == 0):
-            if(dict_values_for_reviews[y][categories.index(x)] == 0):
-                count_zero_neg = count_zero_neg + 1 
-            else:
-                count_one_neg = count_one_neg + 1 
-        else:
-            if(dict_values_for_reviews[y][categories.index(x)] == 0):
-                count_zero = count_zero + 1 
-            else:
-                count_one = count_one + 1 
-    if(each_word_count[x][0][0] == count_zero and each_word_count[x][0][1] == count_one and each_word_count[x][1][0] == count_zero_neg and each_word_count[x][1][1] == count_one_neg):
-        print("Correct for " + x)
-    count_zero = 0 
-    count_one = 0 
-    count_zero_neg = 0 
-    count_one_neg = 0 
  
+

@@ -130,12 +130,14 @@ class DecisionTree:
                 node = Node() 
             #now if we have the same target values for every category 
             targets = [self.value_target[x] for x in review_values_ids]
+            
+            #if we don't have more reviews to explore return the majority  or we don't have more categories to explore
+            if(len(review_values_ids) == 0):
+                node.value = max(set(targets),key = targets.count)     
             #if a word belongs to one class (positive or negative in this case) return the one class 
-        
-                    
-            if(len(set(targets)) == 1):
+            elif(len(set(targets)) == 1):
                 node.value = self.value_target[review_values_ids[0]] 
-            #if we don't have more reviews to explore return the majority  or we don't have more categories to explore 
+            #we don't have more categories to explore 
             elif len(category_ids) == 0:
                 node.value = max(set(targets),key = targets.count)
             #choose the word that maximizes the information gain 
