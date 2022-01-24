@@ -33,9 +33,9 @@ Use the 1000 common words to filter the vocabulary more
 '''
 
 
-#path = "C:/Users/Nikos/Documents/GitHub/Aiexercise2/filtering"
+path = "C:/Users/Nikos/Documents/GitHub/Aiexercise2/filtering"
 
-path = "C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/filtering"
+#path = "C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/filtering"
 
 os.chdir(path)
 with open("common1000.txt") as f:
@@ -51,9 +51,9 @@ for x in contents:
         print("Removed word: " + x)
         vocabulary.pop(x,None)
 
-#path = "C:/Users/Nikos/Documents/GitHub/Aiexercise2/filtering"
+path = "C:/Users/Nikos/Documents/GitHub/Aiexercise2/filtering"
 
-path = "C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/filtering"
+#path = "C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/filtering"
 
 os.chdir(path)
 with open("non_negative_or_positive_connotation_words.txt") as f:
