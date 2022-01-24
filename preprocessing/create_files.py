@@ -15,9 +15,9 @@ along with categories
 '''
 per = per * 100 
 file_name = "" + str(int(per)) + "_" + str(number_of_vocab_words) + "_" + str(approximate_logs) + ".txt"
-file_path = os.path.join("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/per_keys/",file_name)
-if not os.path.exists("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/per_keys/"):
-    os.makedirs("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/per_keys/")
+file_path = os.path.join("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/per_keys/",file_name)
+if not os.path.exists("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/per_keys/"):
+    os.makedirs("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/per_keys/")
 f = open(file_path,"a")
 for x in categories: 
     f.write(x + " ")

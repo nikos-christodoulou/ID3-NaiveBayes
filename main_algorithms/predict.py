@@ -8,7 +8,7 @@ example_folders = ['train','test']
 training_vector = dict()
 count_wrong = 0 
 for i in folders:
-    path = "C:/Users/fotis/OneDrive/Desktop/Aiexercise2/aclImdb/test/" + i 
+    path = "C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/aclImdb/test/" + i 
     os.chdir(path)
     for file in os.listdir(): 
         splited_sentence = process_text.split_sentence(file,path)
@@ -50,18 +50,18 @@ print("Recall: " + str(true_positives/(true_positives+false_negatives)))
 print("F-measure: " + str((2*precision*recall)/(precision + recall)))
 per = per * 100 
 file_name = "" + str(int(number_of_vocab_words)) + "_" + str(approximate_logs_inside_id3) + ".txt"
-file_path = os.path.join("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec_george" + "_" + str(approximate_logs) + "/",file_name)
-if not os.path.exists("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec_george" + "_" + str(approximate_logs)+ "/"):
-    os.makedirs("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec_george" + "_" + str(approximate_logs)+ "/")
+file_path = os.path.join("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/accur_pres_rec_george" + "_" + str(approximate_logs) + "/",file_name)
+if not os.path.exists("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/accur_pres_rec_george" + "_" + str(approximate_logs)+ "/"):
+    os.makedirs("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/accur_pres_rec_george" + "_" + str(approximate_logs)+ "/")
 
 f = open(file_path,"a")
 f.write(str(per) + "," + str(accuracy) + "," + str(precision) + "," + str(recall) + "," + str(number_of_vocab_words) + "\n")
 f.close()
 
 file_name = "" + str(int(number_of_vocab_words)) + "_" + str(approximate_logs_inside_id3) + ".txt"
-file_path = os.path.join("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec" + "_" + str(approximate_logs) + "/",file_name)
-if not os.path.exists("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec" + "_" + str(approximate_logs) + "/"):
-    os.makedirs("C:/Users/fotis/OneDrive/Desktop/exer2AI/Aiexercise2/accur_pres_rec" + "_" + str(approximate_logs) + "/")
+file_path = os.path.join("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/accur_pres_rec" + "_" + str(approximate_logs) + "/",file_name)
+if not os.path.exists("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/accur_pres_rec" + "_" + str(approximate_logs) + "/"):
+    os.makedirs("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/accur_pres_rec" + "_" + str(approximate_logs) + "/")
 
 f = open(file_path,"a")
 f.write(str(per) + " " + str(accuracy) + " " + str(precision) + " " + str(recall) + " " + str(number_of_vocab_words) + "\n")
