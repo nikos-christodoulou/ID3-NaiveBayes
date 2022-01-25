@@ -5,10 +5,9 @@ import numpy as np
 
 class Naive_Bayes:
 
-    def __init__(self,target_values,each_word_count,dict_values_for_reviews,categories):
+    def __init__(self,target_values,each_word_count,categories):
         self.target_values = target_values
         self.each_word_count = each_word_count
-        self.dict_values_for_reviews = dict_values_for_reviews
         self.categories = categories
         
 
