@@ -47,16 +47,19 @@ class Naive_Bayes:
         tar = list(self.target_values)
         num_of_features = [tar.count(x) for x in set(tar)]
         for x in index_neg:
-            prob_smooth_neg.append(self.dict_values_for_reviews[x])
+            y = self.dict_values_for_reviews[x].astype(float, order='K', casting='unsafe', subok=True, copy=True)
+            prob_smooth_neg.append(y)
         for x in index_pos:
-            prob_smooth_pos.append(self.dict_values_for_reviews[x])
+            y = self.dict_values_for_reviews[x].astype(float, order='K', casting='unsafe', subok=True, copy=True)
+            prob_smooth_pos.append(y)
         print("num of features is: ", num_of_features)
         for review in range (len(self.target_values)):
             for x in range(len(self.categories)):
                 if self.target_values[review] == 1:
-
-                    prob_smooth_pos[review][x] = (self.each_word_count[self.categories[self.categories.index(self.categories[x])]][0][1] + alpha) / (num_of_features[1] + 2 * alpha)
-                    prob_smooth_pos[review][x] = (self.each_word_count[self.categories[self.categories.index(self.categories[x])]][0][0] + alpha) / (num_of_features[1] + 2 * alpha)
+                    if(prob_smooth_neg[review][x] == 0):
+                        prob_smooth_pos[review][x] = (self.each_word_count[self.categories[self.categories.index(self.categories[x])]][0][0] + alpha) / (num_of_features[1] + 2 * alpha)
+                    else:
+                        prob_smooth_pos[review][x] = (self.each_word_count[self.categories[self.categories.index(self.categories[x])]][0][1] + alpha) / (num_of_features[1] + 2 * alpha)
 
                     """
                     we want P(Category = cat | C = 1) = num_of_ones_in_reviews(cat) + alpha / num_of_total_features(cat) + 2 * alpha ??
@@ -71,9 +74,10 @@ class Naive_Bayes:
                     and then P(Category = cat | C = 0) = num_of_zeros_in_reviews(cat) + alpha / num_of_total_features(cat) + 2 * alpha ??
 
                     """            
-                   
-                    prob_smooth_neg[review][x] = (self.each_word_count[self.categories[self.categories.index(self.categories[x])]][1][1] + alpha) / (num_of_features[0] + 2 * alpha)    #calculates probability of 1 if review is 0
-                    prob_smooth_neg[review][x] = (self.each_word_count[self.categories[self.categories.index(self.categories[x])]][1][0] + alpha) / (num_of_features[0] + 2 * alpha)    #calculates probability of 0 if review is 0
+                    if(prob_smooth_neg[review][x] == 0):
+                        prob_smooth_neg[review][x] = (self.each_word_count[self.categories[self.categories.index(self.categories[x])]][1][0] + alpha) / (num_of_features[0] + 2 * alpha)    #calculates probability of 1 if review is 0
+                    else:
+                        prob_smooth_neg[review][x] = (self.each_word_count[self.categories[self.categories.index(self.categories[x])]][1][1] + alpha) / (num_of_features[0] + 2 * alpha)    #calculates probability of 0 if review is 0
                     #prob_smooth_neg[review] = (num_of_neg_reviews + alpha)/(data[1] + num_of_features * alpha)
 
         return prob_smooth_pos, prob_smooth_neg
