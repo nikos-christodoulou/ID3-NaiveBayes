@@ -1,7 +1,7 @@
 from operator import index
 import read_train_files,predict_bayes 
 import numpy as np 
-cat_and_rev = read_train_files.read_file(0.65, 80, True)
+cat_and_rev = read_train_files.read_file(0.45, 70, False)
 t = read_train_files.create_vectors(cat_and_rev)
 categories = t[0]
 dict_values_for_reviews = t[1]
@@ -64,7 +64,7 @@ for x in range(0,len(dict_values_for_reviews)):
 
 #Testing...
 
-p1 = predict_bayes.Naive_Bayes(target_values,each_word_count,dict_values_for_reviews,categories)
+p1 = predict_bayes.Naive_Bayes(target_values,each_word_count,categories)
 res = p1.naive_bayes(dict_values_for_reviews)
 x = np.array([res,target_values])
 print(x)

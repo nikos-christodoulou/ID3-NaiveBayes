@@ -1,7 +1,7 @@
 import numpy as np 
 import os,time 
 def read_file(per,number_of_vocab_words,approximate_log):
-    name =  "per_keys/" + str(int(per*100)) + "_" + str(number_of_vocab_words) + "_" + str(True) + ".txt"
+    name =  "per_keys/" + str(int(per*100)) + "_" + str(number_of_vocab_words) + "_" + str(approximate_log) + ".txt"
     while not os.path.exists(name):
         print("Waiting...")
         time.sleep(40)

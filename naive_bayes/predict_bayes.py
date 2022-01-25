@@ -5,11 +5,13 @@ import numpy as np
 
 class Naive_Bayes:
 
-    def __init__(self,target_values,each_word_count, dict_values_for_reviews,categories):
+    def __init__(self,target_values,each_word_count,categories):
+        '''
+        Each word count and target values are essentially the training data 
+        '''
         self.target_values = target_values
         self.each_word_count = each_word_count
         self.categories = categories
-        self.dict_values_for_reviews = dict_values_for_reviews
         
 
 
@@ -77,9 +79,10 @@ class Naive_Bayes:
         for review in range(len(test)):
             '''
             Product of the elements inside the array which are the laplace probabilities 
+
             '''
-            prob_pos.append(np.prod(prob_cat_pos[review])*num_of_features[0]/sum(num_of_features))
-            prob_neg.append(np.prod(prob_cat_neg[review])*num_of_features[1]/sum(num_of_features))
+            prob_pos.append(np.prod(prob_cat_pos[review])*num_of_features[1]/sum(num_of_features))
+            prob_neg.append(np.prod(prob_cat_neg[review])*num_of_features[0]/sum(num_of_features))
         return prob_pos, prob_neg
 
 
