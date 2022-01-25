@@ -1,7 +1,8 @@
 import numpy as np 
-import read_train_files
-cat_and_rev = read_train_files.read_file(0.45, 70, False)
-t = read_train_files.create_vectors(cat_and_rev)
+import read_files
+per = 0.45 
+cat_and_rev = read_files.read_file(0.45, 70, False)
+t = read_files.create_vectors(cat_and_rev)
 categories = t[0]
 dict_values_for_reviews = t[1]
 target_values = t[2]

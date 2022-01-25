@@ -2,7 +2,7 @@ from operator import index
 import predict_bayes 
 import numpy as np 
 from count_words_pos_neg import target_values,each_word_count,categories,dict_values_for_reviews
-
+import os 
 #Testing...
 
 p1 = predict_bayes.Naive_Bayes(target_values,each_word_count,categories)
@@ -18,6 +18,8 @@ wrong = np.count_nonzero(x == 1) + np.count_nonzero(x == -1)
 pres = np.count_nonzero(target_values==1) / (np.count_nonzero(target_values==1) + false_positives)
 rec = np.count_nonzero(target_values==1)/(np.count_nonzero(target_values==1) + false_negatives)
 f_measure = (2*pres*rec)/(pres + rec)
+#read train data 
+
 #both test data and training data 
 print("Accuracy -> {} %".format((1 - wrong/len(target_values)) * 100))
 #for the test data 

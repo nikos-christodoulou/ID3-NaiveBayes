@@ -1,4 +1,4 @@
-from construct_training_examples import training_data_frame
+from construct_test_examples import training_data_frame
 import numpy as np 
 import os 
 
@@ -14,7 +14,7 @@ write training vectors in text files
 along with categories 
 '''
 per = per * 100 
-file_name = "" + str(int(per)) + "_" + str(number_of_vocab_words) + "_" + str(approximate_logs) + ".txt"
+file_name = "" + str(round(per)) + "_" + str(number_of_vocab_words) + "_" + str(approximate_logs) + ".txt"
 """
 file_path = os.path.join("C:/Users/Nikos/Documents/GitHub/Aiexercise2/per_keys/",file_name)
 if not os.path.exists("C:/Users/Nikos/Documents/GitHub/Aiexercise2/per_keys/"):
