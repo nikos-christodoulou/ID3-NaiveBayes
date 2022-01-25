@@ -91,14 +91,14 @@ class Naive_Bayes:
     returns the predicted binary value for each review
     """
     def naive_bayes(self,test):
-        results = np.zeros(len(self.target_values), dtype = int)
+        results = np.zeros(test.shape[0],dtype = int)
         '''
         Test should be a two dimensional array with the reviews that want to be classified
         '''
         prob_pos, prob_neg = Naive_Bayes.classify(self,test)
 
         for i in range (len(prob_pos)):
-            if prob_pos[i] > prob_neg[i]:
+            if prob_pos[i] >= prob_neg[i]:
                 results[i] = 1
             else:
                 results[i] = 0

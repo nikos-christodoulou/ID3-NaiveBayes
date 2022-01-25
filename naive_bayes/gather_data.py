@@ -29,5 +29,5 @@ else:
         os.makedirs("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/test_train_bayes" + "/")
 
     f = open(file_path,"a")
-    f.write(str(per) + "," + str(error_train) + "," + str(error_test) + "," + str(number_of_vocab_words) + "\n")
+    f.write(str(per) + " " + str(error_train) + " " + str(error_test) + " " + str(number_of_vocab_words) + "\n")
     f.close() 
