@@ -23,13 +23,12 @@ class DecisionTree:
     It needs to take the categories,the values for each category and the 
     target values 
     '''
-    def __init__(self,values_of_categories,categories,positive_or_negative,approximate = False):
+    def __init__(self,values_of_categories,categories,positive_or_negative):
         self.node = None 
         self.category_values = values_of_categories # for each review the words present in that review, this is a two dimensional array where the rows are the values for each category for that specific review  
         self.categories = categories # the names of all the words  , this is a 1 dimension list will all the categories names
         self.value_target = positive_or_negative # whether a review is positive or negative, this is a 1 dimension np array which is the same length as the columns of the category values array
-        self.value_target_set = list(set(self.value_target))     
-        self.approximate = approximate # use the approximation for the logarithms   
+        self.value_target_set = list(set(self.value_target))      
         self.ln = log(2)
         self.recursion_stack = list() 
         self.COUNT = 10
@@ -42,27 +41,11 @@ class DecisionTree:
         values = [self.value_target[i] for i in ids_of_reviews]
         #with the method count,count the times that a target value appears 
         values_count = [values.count(x) for x in self.value_target_set]
-        '''
-        Logarithmic functions are very costly and difficult to compute. 
-        We will use approximation for the log function to speed up the computation process. 
-        '''
-        if(self.approximate):
-            #check if we have 2 categories 
-            if(len(values_count) == 2):
-                entropy = (((2*values_count[1]*values_count[0])/(len(ids_of_reviews)))/(len(ids_of_reviews)*self.ln)) 
-            else:  
-                # we need to produce the possible combinations 
-                indexes = list() 
-                for i in range(1,len(values_count)):
-                    indexes.append(i)
-                comb = combinations(indexes,2)
-                for i in list(comb): 
-                    entropy = (((2*values_count[i[1]]*values_count[i[0]])/(len(ids_of_reviews)))/(len(ids_of_reviews)*self.ln)) 
-        else:
-            entropy_for_each_category = [- y/len(ids_of_reviews) * log(y/len(ids_of_reviews),2) if y else 0 for y in values_count] 
-            entropy = sum(entropy_for_each_category)
-        if(entropy > 1):
-            entropy = 1 
+    
+        entropy_for_each_category = [- y/len(ids_of_reviews) * log(y/len(ids_of_reviews),2) if y else 0 for y in values_count] 
+        entropy = sum(entropy_for_each_category)
+        if(entropy>1):
+            entropy = 1
         return entropy 
     def InfoGain(self,specific_word,ids_of_reviews):
         # total entropy of the given reviews 

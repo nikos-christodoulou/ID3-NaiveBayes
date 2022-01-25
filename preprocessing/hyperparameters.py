@@ -5,7 +5,7 @@ Argument list should be
 Percentage of training data, approximate logs, number of vocab words, 
 '''
 
-if len(sys.argv) == 4: 
+if len(sys.argv) == 1 : 
     '''
     per = float(sys.argv[1])/100
     approximate_logs = sys.argv[2] == "True"
