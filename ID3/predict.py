@@ -1,30 +1,32 @@
+from asyncore import read
+from cgi import test
 from train_id3 import p1,categories
 import os,process_text 
 import pandas as pd 
 import numpy as np
-from hyperparameters import test_train
+from hyperparameters import test_train,number_of_vocab_words,approximate_logs,per
+
+from train_id3 import values_for_each_sentence,values_for_positiveornegative,categories
 folders = ['neg','pos']
 example_folders = ['train','test']
 training_vector = dict()
 count_wrong = 0 
-for i in folders:
-    if(test_train == "test"):
+if(test_train == "test"):
+    for i in folders:
+    
         path = "C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/aclImdb/test/" + i 
-    else: 
-        path = "C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/aclImdb/train/" + i 
-    os.chdir(path)
-    for file in os.listdir(): 
-        splited_sentence = process_text.split_sentence(file,path)
-        for key in categories:
-            process_text.add_key(key,training_vector,splited_sentence)
-        process_text.add_target_val(training_vector,i)
+        os.chdir(path)
+        for file in os.listdir(): 
+            splited_sentence = process_text.split_sentence(file,path)
+            for key in categories:
+                process_text.add_key(key,training_vector,splited_sentence)
+            process_text.add_target_val(training_vector,i)
 
+    testing_data_frame = pd.DataFrame(training_vector)
+    print(testing_data_frame)
+    values_for_each_sentence = np.array(testing_data_frame.drop('positive_or_negative',axis=1)).copy()
+    values_for_positiveornegative = np.array(testing_data_frame["positive_or_negative"]).copy()
 
-
-testing_data_frame = pd.DataFrame(training_vector)
-print(testing_data_frame)
-values_for_each_sentence = np.array(testing_data_frame.drop('positive_or_negative',axis=1)).copy()
-values_for_positiveornegative = np.array(testing_data_frame["positive_or_negative"]).copy()
 true_positives = 0 
 false_positives = 0 
 false_negatives = 0 
