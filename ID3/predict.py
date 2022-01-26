@@ -2,13 +2,16 @@ from train_id3 import p1,categories
 import os,process_text 
 import pandas as pd 
 import numpy as np
-from hyperparameters import per,number_of_vocab_words,approximate_logs_inside_id3,approximate_logs
+from hyperparameters import test_train
 folders = ['neg','pos']
 example_folders = ['train','test']
 training_vector = dict()
 count_wrong = 0 
 for i in folders:
-    path = "C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/aclImdb/test/" + i 
+    if(test_train == "test"):
+        path = "C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/aclImdb/test/" + i 
+    else: 
+        path = "C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/aclImdb/train/" + i 
     os.chdir(path)
     for file in os.listdir(): 
         splited_sentence = process_text.split_sentence(file,path)

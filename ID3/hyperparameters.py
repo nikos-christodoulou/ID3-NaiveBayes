@@ -2,19 +2,16 @@ from getopt import getopt
 import sys ,getopt
 '''
 Argument list should be 
-Percentage of training data, approximate logs, number of vocab words, approximate logs inside id3
+Percentage of training data, approximate logs, number of vocab words, find the accuracy for the training data 
 '''
-if len(sys.argv) == 4:     
+if len(sys.argv) == 3:     
     
     per = float(sys.argv[1])/100
     approximate_logs = sys.argv[2] == "True"
     number_of_vocab_words = int(sys.argv[3])
-    '''
-    per = 0.58
-    approximate_logs = False
-    number_of_vocab_words = 70
-    approximate_logs_inside_id3 = True
-    '''
+    test_train = sys.argv[4]
+   
+    
     
     
     

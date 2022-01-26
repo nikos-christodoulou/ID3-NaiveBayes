@@ -5,8 +5,8 @@ Argument list should be
 Percentage of training data, approximate logs, number of vocab words, 
 '''
 
-if len(sys.argv) == 1: 
-    '''
+if len(sys.argv) == 5: 
+    
     per = float(sys.argv[1])/100
     approximate_logs = sys.argv[2] == "True"
     number_of_vocab_words = int(sys.argv[3])
@@ -16,6 +16,7 @@ if len(sys.argv) == 1:
     approximate_logs = True
     number_of_vocab_words = 10
     test_train = "train"
+    '''
     
     
 print("The percentage used will be: " + str(per))

@@ -20,9 +20,9 @@ file_path = os.path.join("C:/Users/Nikos/Documents/GitHub/Aiexercise2/per_keys/"
 if not os.path.exists("C:/Users/Nikos/Documents/GitHub/Aiexercise2/per_keys/"):
     os.makedirs("C:/Users/Nikos/Documents/GitHub/Aiexercise2/per_keys/")
 """
-file_path = os.path.join("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/per_keys/",file_name)
-if not os.path.exists("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/per_keys/"):
-    os.makedirs("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/per_keys/")
+file_path = os.path.join("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/per_keys_test/",file_name)
+if not os.path.exists("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/per_keys_test/"):
+    os.makedirs("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/per_keys_test/")
 
 f = open(file_path,"a")
 for x in categories: 
