@@ -9,24 +9,24 @@ class Naive_Bayes:
         '''
         Each word count and target values are essentially the training data 
         '''
-        self.target_values = target_values
         self.each_word_count = each_word_count
         self.categories = categories
+        tar = list(target_values)
+        self.num_of_features = [tar.count(x) for x in set(tar)]
         
 
 
 
-    """"
-    laplace smoothing is used to handle 
-    zero probability error. We use the alpha (!=0) as 
-    the smoothing parameter.
-
-    """    
+      
     
     def laplace_smoothing(self,test,alpha = 1.0):
-        tar = list(self.target_values)
-        num_of_features = [tar.count(x) for x in set(tar)]
-        print("num of features is: ", num_of_features)
+        """"
+        laplace smoothing is used to handle 
+        zero probability error. We use the alpha (!=0) as 
+        the smoothing parameter.
+
+        """  
+    
         test1 = np.copy(test)
         test2 = np.copy(test) 
         test1 = test1.astype(float, order='K', subok=True, copy=False)
@@ -37,66 +37,61 @@ class Naive_Bayes:
         '''
         for review in range (len(test)):
             for x in range(len(self.categories)):
+                #find the la place probability of the value of the specific word for the positive reviews
                 if(test[review][x] == 0):
-                    test1[review][x] = (self.each_word_count[self.categories[self.categories.index(self.categories[x])]][0][0] + alpha) / (num_of_features[1] + 2 * alpha)
+                    test1[review][x] = (self.each_word_count[self.categories[self.categories.index(self.categories[x])]][0][0] + alpha) / (self.num_of_features[1] + 2 * alpha)
                 else:
-                    test1[review][x] = (self.each_word_count[self.categories[self.categories.index(self.categories[x])]][0][1] + alpha) / (num_of_features[1] + 2 * alpha)
+                    test1[review][x] = (self.each_word_count[self.categories[self.categories.index(self.categories[x])]][0][1] + alpha) / (self.num_of_features[1] + 2 * alpha)
 
                     """
                     we want P(Category = cat | C = 1) = num_of_ones_in_reviews(cat) + alpha / num_of_total_features(cat) + 2 * alpha ??
                     and then P(Category = cat | C = 1) = num_of_zeros_in_reviews(cat) + alpha / num_of_total_features(cat) + 2 * alpha ??
 
                     """
-                    #prob_smooth_pos[review] = (num_of_pos_reviews + alpha)/(data[1] + num_of_features * alpha)
-                            
+                #find the la place probability of the value of the specific word for the negative reviews            
                 if(test[review][x] == 0):
-                    test2[review][x] = (self.each_word_count[self.categories[self.categories.index(self.categories[x])]][1][0] + alpha) / (num_of_features[0] + 2 * alpha)    #calculates probability of 1 if review is 0
+                    test2[review][x] = (self.each_word_count[self.categories[self.categories.index(self.categories[x])]][1][0] + alpha) / (self.num_of_features[0] + 2 * alpha)    #calculates probability of 1 if review is 0
                 else:
-                    test2[review][x] = (self.each_word_count[self.categories[self.categories.index(self.categories[x])]][1][1] + alpha) / (num_of_features[0] + 2 * alpha)    #calculates probability of 0 if review is 0
+                    test2[review][x] = (self.each_word_count[self.categories[self.categories.index(self.categories[x])]][1][1] + alpha) / (self.num_of_features[0] + 2 * alpha)    #calculates probability of 0 if review is 0
                 
                     
                 """
                 we want P(Category = cat | C = 0) = num_of_ones_in_reviews(cat) + alpha / num_of_total_features(cat) + 2 * alpha ??
                 and then P(Category = cat | C = 0) = num_of_zeros_in_reviews(cat) + alpha / num_of_total_features(cat) + 2 * alpha ??
 
-                """    
-                #prob_smooth_neg[review] = (num_of_neg_reviews + alpha)/(data[1] + num_of_features * alpha)
+                """
 
         return test1, test2
 
     
-    """
-    predicts the target value for each review
-    """
+    
     def classify(self,test):
-        #prob_1 = prob_0 = 0.5
+        """
+        predicts the target value for each review
+        """
         prob_pos = list()
         prob_neg = list()
         prob_cat_pos, prob_cat_neg = Naive_Bayes.laplace_smoothing(self,test)
-        tar = list(self.target_values)
-        num_of_features = [tar.count(x) for x in set(tar)]
-        print("num of features is: ", num_of_features)
+       
+        print("num of features is: ", self.num_of_features)
         for review in range(len(test)):
             '''
             Product of the elements inside the array which are the laplace probabilities 
-
             '''
-            prob_pos.append(np.prod(prob_cat_pos[review])*num_of_features[1]/sum(num_of_features))
-            prob_neg.append(np.prod(prob_cat_neg[review])*num_of_features[0]/sum(num_of_features))
+            prob_pos.append(np.prod(prob_cat_pos[review])*self.num_of_features[1]/sum(self.num_of_features))
+            prob_neg.append(np.prod(prob_cat_neg[review])*self.num_of_features[0]/sum(self.num_of_features))
         return prob_pos, prob_neg
 
 
 
-    """
-    returns the predicted binary value for each review
-    """
+  
     def naive_bayes(self,test):
-        results = np.zeros(test.shape[0],dtype = int)
-        '''
+        """
         Test should be a two dimensional array with the reviews that want to be classified
-        '''
+        returns the predicted binary value for each review
+        """
+        results = np.zeros(test.shape[0],dtype = int)
         prob_pos, prob_neg = Naive_Bayes.classify(self,test)
-
         for i in range (len(prob_pos)):
             if prob_pos[i] >= prob_neg[i]:
                 results[i] = 1
