@@ -18,7 +18,7 @@ if(type_of_test == "test_examples"):
     #[0,1,0] = target 
     #[1,0,1] = res 
     x = np.diff(x,axis=0)
-    #[1,-1,1]
+    #[-1,1,-1]
     false_positives = np.count_nonzero(x==-1)
     false_negatives = np.count_nonzero(x==1)
     print("The number of false negatives: " + str(false_negatives))
