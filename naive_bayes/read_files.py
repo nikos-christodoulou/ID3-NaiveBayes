@@ -9,11 +9,11 @@ def read_file(per,number_of_vocab_words,approximate_log,type_of_test):
         name1 =  "per_keys/" + str(round(per*100)) + "_" + str(number_of_vocab_words) + "_" + str(approximate_log) + ".txt"
         print("Try to read file: " + name1)
         while not os.path.exists(name1):
-            print("Waiting...")
+            print("Waiting... No file named: " + name1)
             time.sleep(40)
         name2 =  "per_keys_test/" + str(round(per*100)) + "_" + str(number_of_vocab_words) + "_" + str(approximate_log) + ".txt"
         while not os.path.exists(name2):
-            print("Waiting...")
+            print("Waiting... No file named: " + name2)
             time.sleep(40)
         print("Try to read file: " + name2)
         with open(name1,'r'):
@@ -30,12 +30,12 @@ def read_file(per,number_of_vocab_words,approximate_log,type_of_test):
         name1 =  "per_keys/" + str(round(per*100)) + "_" + str(number_of_vocab_words) + "_" + str(approximate_log) + ".txt"
         print("Try to read file: " + name1)
         while not os.path.exists(name1):
-            print("Waiting...")
+            print("Waiting... No file named: " + name1)
             time.sleep(40)
         name2 =  "per_keys/" + str(100) + "_" + str(number_of_vocab_words) + "_" + str(approximate_log) + ".txt"
         print("Try to read file: " + name2)
         while not os.path.exists(name2):
-            print("Waiting...")
+            print("Waiting... No file named: " + name2)
             time.sleep(40)
         with open(name1,'r'):
             file1 = open(name1,'r')
@@ -52,12 +52,12 @@ def read_file(per,number_of_vocab_words,approximate_log,type_of_test):
         name1 =  "per_keys/" + str(round(per*100)) + "_" + str(number_of_vocab_words) + "_" + str(approximate_log) + ".txt"
         print("Try to read file: " + name1)
         while not os.path.exists(name1):
-            print("Waiting...")
+            print("Waiting... No file named: " + name1)
             time.sleep(40)
         name2 =  "per_keys_test/" + str(100) + "_" + str(number_of_vocab_words) + "_" + str(approximate_log) + ".txt"
         print("Try to read file: " + name2)
         while not os.path.exists(name2):
-            print("Waiting...")
+            print("Waiting... No file named: " + name2)
             time.sleep(40)
         with open(name1,'r'):
             file1 = open(name1,'r')
