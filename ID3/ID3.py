@@ -1,5 +1,5 @@
 
-from math import log
+import math 
 from itertools import combinations 
 from collections import Counter
 class Node:
@@ -29,7 +29,6 @@ class DecisionTree:
         self.categories = categories # the names of all the words  , this is a 1 dimension list will all the categories names
         self.value_target = positive_or_negative # whether a review is positive or negative, this is a 1 dimension np array which is the same length as the columns of the category values array
         self.value_target_set = list(set(self.value_target))      
-        self.ln = log(2)
         self.recursion_stack = list() 
         self.COUNT = 10
         self.final_tree = list()
@@ -42,7 +41,7 @@ class DecisionTree:
         #with the method count,count the times that a target value appears 
         values_count = [values.count(x) for x in self.value_target_set]
     
-        entropy_for_each_category = [- y/len(ids_of_reviews) * log(y/len(ids_of_reviews),2) if y else 0 for y in values_count] 
+        entropy_for_each_category = [- y/len(ids_of_reviews) * math.log(y/len(ids_of_reviews),2) if y else 0 for y in values_count] 
         entropy = sum(entropy_for_each_category)
         if(entropy>1):
             entropy = 1
@@ -72,8 +71,9 @@ class DecisionTree:
         list_of_positions_for_each_value = [[ids_of_reviews[x] for x in range(0,len(x_values)) if x_values[x] == y] for y in set(x_values)]
         #number of each category, followed by the list of positions which are the reviews that contain the specific value for that category 
         values_and_categories = [(x_values_count[i],list_of_positions_for_each_value[i]) for i in range(0,len(list_of_positions_for_each_value))]
-        info_gain_category = sum([x[0]/len(ids_of_reviews) * self.calculate_entropy(x[1]) for x in values_and_categories]) 
-        IG = IG - info_gain_category
+        entropy_category = [x[0]/len(ids_of_reviews) * self.calculate_entropy(x[1]) for x in values_and_categories]
+        entropy_category = sum(entropy_category)
+        IG = IG - entropy_category
         return IG
     def GetMaxInfoGain(self,ids_of_reviews,each_category_id): 
         #min_max sorting algorithm 
