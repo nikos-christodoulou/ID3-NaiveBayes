@@ -18,6 +18,7 @@ if len(sys.argv) == 5:
     type_of_test = "test_examples"
     '''
     
+    
 print("The percentage used will be: " + str(per))
 print("Will the file be the approximate log file: " + str(approximate_logs))
 print("The number of vocabulary keys: " + str(number_of_vocab_words))
