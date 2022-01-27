@@ -28,11 +28,8 @@ for i in folders:
     count = 0
     for file in os.listdir(): 
         # call the process text function  
-        if file.endswith(".txt"):
-            file_name = f"{file}"
-        with open(file_name,'r',encoding="latin-1") as f:
-            sentence = f.read()
-        splited_sentence = process_text.split_sentence(file,sentence)
+        
+        splited_sentence = process_text.split_sentence(file,file_path)
         # counter will count how many times a word appears in all the reviews
         Countervariable = Counter(splited_sentence)
         most_occurred_words = Countervariable.most_common()

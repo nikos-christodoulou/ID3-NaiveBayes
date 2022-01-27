@@ -11,10 +11,11 @@ if len(sys.argv) == 4:
     approximate_logs = sys.argv[2] == "True"
     number_of_vocab_words = int(sys.argv[3])
     '''
-    per = 5/100
+    per = 45/100
     approximate_logs = False
-    number_of_vocab_words = 30
+    number_of_vocab_words = 80
     '''
+    
 print("The percentage used will be: " + str(per))
 print("Will the logs be approximated: " + str(approximate_logs))
 print("The number of vocabulary keys: " + str(number_of_vocab_words))

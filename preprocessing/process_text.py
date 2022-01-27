@@ -1,6 +1,9 @@
 import os 
-def split_sentence(file,sentence):
-
+def split_sentence(file,path):
+        if file.endswith(".txt"):
+            file_name = f"{path}/{file}"
+        with open(file_name,'r',encoding="latin-1") as f:
+            sentence = f.read()
         #removing special characters so the vocabulary can represent tha data set better 
         sentence = sentence.translate({ord(c): None for c in '().!@#$***,?:-=+'})
         sentence = sentence.lower()
