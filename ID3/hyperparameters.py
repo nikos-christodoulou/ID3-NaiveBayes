@@ -11,10 +11,10 @@ if len(sys.argv) == 5:
     number_of_vocab_words = int(sys.argv[3])
     type_of_test = sys.argv[4]
     '''
-    per = 5 /100
+    per = 60/100 
     approximate_logs = False
-    number_of_vocab_words = 10 
-    type_of_test = "train_data"
+    number_of_vocab_words = 30
+    type_of_test = "same_percentage"
     '''
     
     
