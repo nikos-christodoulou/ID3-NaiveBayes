@@ -10,7 +10,7 @@ if(type_of_test == "test_examples"):
     if not os.path.exists("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/per_accur_pres_rec_f_Bayes" + "/"):
         os.makedirs("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/per_accur_pres_rec_f_Bayes" + "/")
     with open(file_name,"a") as f:
-        f.write(str(per) + " " + str(accuracy) + " " + str(pres) + " " + str(rec) + " " + str(number_of_vocab_words) + "\n")
+        f.write(str(per) + " " + str(accuracy) + " " + str(pres) + " " + str(rec) + " " + str(f_measure) + str(number_of_vocab_words) + "\n")
 elif(type_of_test == "same_percentage"):
     from naive_bayes import error_train,error_test
     print("Writing error rate for the same percentage of training data set and testing data set")
