@@ -1,9 +1,13 @@
 import subprocess
 import time
-b = [True,False]
-data = ["test","train"]
-for u in data:
+'''
+
+'''
+approximate_logs = [False,True]
+types_of_test = ["same_percentage","train_data","test_examples"]
+for  in data:
     for z in b:
+        if()
         for x in range(5,101,5):
                 for y in range(10,110,10):
                     start = time.time()
