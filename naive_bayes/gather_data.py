@@ -7,8 +7,8 @@ if(type_of_test == "test_examples"):
     print("Writing per,accur, for train" + str(per) + " on testing data set in file")
     file_name = str(int(number_of_vocab_words)) + "_" + str(approximate_logs) +  ".txt"
     file_path = os.path.join("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/per_accur_pres_rec_f_Bayes",file_name)
-    if not os.path.exists("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/per_accur_pres_rec_f_Bayes"):
-        os.makedirs("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/per_accur_pres_rec_f_Bayes")
+    if not os.path.exists("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/per_accur_pres_rec_f_Bayes" + "/"):
+        os.makedirs("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/per_accur_pres_rec_f_Bayes" + "/")
     with open(file_name,"a") as f:
         f.write(str(per) + "," + str(accuracy) + "," + str(pres) + "," + str(rec) + "," + str(number_of_vocab_words) + "\n")
 elif(type_of_test == "same_percentage"):

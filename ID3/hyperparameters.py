@@ -9,9 +9,13 @@ if len(sys.argv) == 5:
     per = float(sys.argv[1])/100
     approximate_logs = sys.argv[2] == "True"
     number_of_vocab_words = int(sys.argv[3])
-    test_train = sys.argv[4]
-   
-    
+    type_of_test = sys.argv[4]
+    '''
+    per = 5 /100
+    approximate_logs = False
+    number_of_vocab_words = 10 
+    type_of_test = "train_data"
+    '''
     
     
     

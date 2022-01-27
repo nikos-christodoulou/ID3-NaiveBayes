@@ -231,7 +231,9 @@ class DecisionTree:
     
     def print_tree(self,node,space): 
         # because we want to print the tree like BFS we will use a queue and not a stack 
-       
+        '''
+        This is used more for debugging
+        '''
         
         if(node == None):
             return 

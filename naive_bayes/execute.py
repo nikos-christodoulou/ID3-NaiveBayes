@@ -14,11 +14,11 @@ for t in types_of_test:
             for x in range(5,101,5):
                     for y in range(10,110,10):
                         start = time.time()
-                        subprocess.call("python C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/naive_bayes/gather_data.py " + str(x) + " " + str(z) + " " + str(y) + " " + str(u), shell=True)
+                        subprocess.call("python C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/naive_bayes/gather_data.py " + str(x) + " " + str(z) + " " + str(y) + " " + str(t), shell=True)
                         print(time.time() - start)
         else:
             for x in range(1,101):
                     for y in range(10,110,10):
                         start = time.time()
-                        subprocess.call("python C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/naive_bayes/gather_data.py " + str(x) + " " + str(z) + " " + str(y) + " " + str(u), shell=True)
+                        subprocess.call("python C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/naive_bayes/gather_data.py " + str(x) + " " + str(z) + " " + str(y) + " " + str(t), shell=True)
                         print(time.time() - start)
