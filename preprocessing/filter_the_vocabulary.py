@@ -30,11 +30,8 @@ for i in range (0,number_of_vocab_words):
 
 '''
 Use the 1000 common words to filter the vocabulary more 
+We found those online 
 '''
-
-
-#path = "C:/Users/Nikos/Documents/GitHub/Aiexercise2/filtering"
-
 path = "C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/filtering"
 
 os.chdir(path)
@@ -50,11 +47,7 @@ for x in contents:
     if(x in vocabulary):
         print("Removed word: " + x)
         vocabulary.pop(x,None)
-
-#path = "C:/Users/Nikos/Documents/GitHub/Aiexercise2/filtering"
-
 path = "C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/filtering"
-
 os.chdir(path)
 with open("non_negative_or_positive_connotation_words.txt") as f:
     contents = f.read().splitlines()
@@ -64,5 +57,4 @@ for x in contents:
         vocabulary.pop(x,None)
 positive_word_in_reviews = temp_pos 
 negative_word_in_reviews = temp_neg
-
 print(vocabulary)

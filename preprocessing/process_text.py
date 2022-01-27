@@ -1,16 +1,12 @@
 import os 
-def split_sentence(file,path):
-    if file.endswith(".txt"):
-            file_path = f"{path}/{file}"
-    f = open(file_path,'r',encoding="latin-1")
-    sentence = f.read()
-    #removing special characters so the vocabulary can represent tha data set better 
-    sentence = sentence.translate({ord(c): None for c in '().!@#$***,?:-=+'})
-    sentence = sentence.lower()
-    sentence = sentence.replace("<br />"," ")
-    splited_sentence = sentence.split()
-    f.close()
-    return splited_sentence
+def split_sentence(file,sentence):
+
+        #removing special characters so the vocabulary can represent tha data set better 
+        sentence = sentence.translate({ord(c): None for c in '().!@#$***,?:-=+'})
+        sentence = sentence.lower()
+        sentence = sentence.replace("<br />"," ")
+        splited_sentence = sentence.split()
+        return splited_sentence
 
 def add_key(key,training_vector,splited_sentence):
         if(not(key in training_vector)):

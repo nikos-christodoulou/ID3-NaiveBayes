@@ -4,13 +4,10 @@ import os,process_text as process_text
 
 #path = "C:/Users/Nikos/Documents/GitHub/Aiexercise2/aclImdb"
 
-path = "C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/aclImdb"
+path = "/aclImdb/"
 
 
-#read text file 
-def read_text_file(file_path):
-    with open(file_path,'r',encoding="latin-1") as f: 
-        return f.read()
+
 
 vocabulary = dict() 
 positive_word_in_reviews = dict() #in how many negative reviews a specific word appears
@@ -24,21 +21,19 @@ negative = list()
 positive = list()
 for i in folders:
     #this will be the folder path for the positives and the negatives
-    
-
-    #path = "C:/Users/Nikos/Documents/GitHub/Aiexercise2/aclImdb/train/" + i
-
-    path = "C:/Users/fotis\OneDrive/Desktop/exer/Aiexercise2/aclImdb/train/" + i
-
-    os.chdir(path)
+    file_path = "C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/aclImdb/train/" + i
+    os.chdir(file_path)
     print("This checks " + i)
-    
-
     #here we will iterate through the whole file 
     count = 0
     for file in os.listdir(): 
-        # check the text format 
-        splited_sentence = process_text.split_sentence(file,path)
+        # call the process text function  
+        if file.endswith(".txt"):
+            file_name = f"{file}"
+        with open(file_name,'r',encoding="latin-1") as f:
+            sentence = f.read()
+        splited_sentence = process_text.split_sentence(file,sentence)
+        # counter will count how many times a word appears in all the reviews
         Countervariable = Counter(splited_sentence)
         most_occurred_words = Countervariable.most_common()
         if(i == 'neg'):
