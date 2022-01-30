@@ -7,11 +7,6 @@ import numpy as np
 '''
 Specify through hyperparameters on how you want to train the data
 '''
-menu = {} 
-menu['1']="Read text file: 1" 
-menu['2']="Type the review: 2"
-menu['3']="Read binary vector file: 3"
-menu['4']="Exit: 4"
 
 cat_and_rev = read_files.classify_read_file(per,number_of_vocab_words,approximate_logs)
 tup = read_files.create_vectors(cat_and_rev)
