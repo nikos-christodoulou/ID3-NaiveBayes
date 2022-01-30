@@ -12,7 +12,7 @@ all of the above imports from create dictionary expect each_word_count have to d
 if(type_of_test == "test_examples"):
     print("Finding accuracy presicion and recall for a specific percentage of the train set and the whole testing set")
     p1 = predict_bayes.Naive_Bayes(target_for_both[0],each_word_count,categories_for_both[0])
-    res = p1.naive_bayes(reviews_for_both[1])
+    res = p1.naive_bayes(reviews_for_both[1],categories_for_both[1])
     x = np.array([res,target_for_both[1]]) # first matrix is result and second is target values 
     #first array gets removed from the second array 
     #[0,1,0] = target 
@@ -38,8 +38,8 @@ elif(type_of_test == "same_percentage"):
     '''
     print("Finding the percentage of error for the same percentage of test and train data")
     train = predict_bayes.Naive_Bayes(target_for_both[0],each_word_count,categories_for_both[0])
-    res1 = train.naive_bayes(reviews_for_both[0])
-    res2 = train.naive_bayes(reviews_for_both[1])
+    res1 = train.naive_bayes(reviews_for_both[0],categories_for_both[0])
+    res2 = train.naive_bayes(reviews_for_both[1],categories_for_both[1])
     x = np.array([res1,target_for_both[0]]) # first matrix is result and second is target values 
     x = np.diff(x,axis=0)
     #first array gets removed from the second array 
@@ -60,7 +60,7 @@ else:
     '''
     print("Finding percentage of errors for the train data on the training data set")
     p1 = predict_bayes.Naive_Bayes(target_for_both[0],each_word_count,categories_for_both[0])
-    res = p1.naive_bayes(reviews_for_both[1])
+    res = p1.naive_bayes(reviews_for_both[1],categories_for_both[1])
     x = np.array([res,target_for_both[1]]) # first matrix is result and second is target values 
     #first array gets removed from the second array 
     #[0,1,0] = target 

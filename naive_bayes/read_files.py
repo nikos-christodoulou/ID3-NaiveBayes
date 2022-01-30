@@ -1,47 +1,62 @@
-from re import L
+
 import numpy as np 
 import os,time 
+def read_binary_vector_review(name):
+    print("Try to read file: " + name)
+    while not os.path.exists(name):
+        print("Waiting... No file named: " + name)
+        time.sleep(40)
+    with open(name,'r') as f:
+        cat_and_rev = f.readlines()
+    return cat_and_rev
+
+def classify_read_file(per,number_of_vocab_words,approximate_log):
+    name =  "per_keys_serial/" + str(round(per*100)) + "_" + str(number_of_vocab_words) + "_" + str(approximate_log) + ".txt"
+    print("Try to read file: " + name)
+    while not os.path.exists(name):
+        print("Waiting... No file named: " + name)
+        time.sleep(40)
+    with open(name,'r') as f:
+        cat_and_rev = f.readlines()
+    return cat_and_rev
+
 def read_file(per,number_of_vocab_words,approximate_log,type_of_test):
     '''
     Read the same percentage from each category of files to compare error
     '''
     if(type_of_test == "same_percentage"):
-        name1 =  "per_keys/" + str(round(per*100)) + "_" + str(number_of_vocab_words) + "_" + str(approximate_log) + ".txt"
+        name1 =  "per_keys_serial/" + str(round(per*100)) + "_" + str(number_of_vocab_words) + "_" + str(approximate_log) + ".txt"
         print("Try to read file: " + name1)
         while not os.path.exists(name1):
             print("Waiting... No file named: " + name1)
             time.sleep(40)
-        name2 =  "per_keys_test/" + str(round(per*100)) + "_" + str(number_of_vocab_words) + "_" + str(approximate_log) + ".txt"
+        name2 =  "per_keys_test_serial/" + str(round(per*100)) + "_" + str(number_of_vocab_words) + "_" + str(approximate_log) + ".txt"
         while not os.path.exists(name2):
             print("Waiting... No file named: " + name2)
             time.sleep(40)
         print("Try to read file: " + name2)
-        with open(name1,'r'):
-            file1 = open(name1,'r')
+        with open(name1,'r') as file1:
             cat_and_rev1 = file1.readlines()
-        with open(name2,'r'):   
-            file2 = open(name2,'r')
+        with open(name2,'r') as file2:   
             cat_and_rev2 = file2.readlines()
         return cat_and_rev1,cat_and_rev2
     elif(type_of_test == "train_data"):
         '''
         With a given percentage of training data find the errors for all the training data
         '''
-        name1 =  "per_keys/" + str(round(per*100)) + "_" + str(number_of_vocab_words) + "_" + str(approximate_log) + ".txt"
+        name1 =  "per_keys_serial/" + str(round(per*100)) + "_" + str(number_of_vocab_words) + "_" + str(approximate_log) + ".txt"
         print("Try to read file: " + name1)
         while not os.path.exists(name1):
             print("Waiting... No file named: " + name1)
             time.sleep(40)
-        name2 =  "per_keys/" + str(100) + "_" + str(number_of_vocab_words) + "_" + str(approximate_log) + ".txt"
+        name2 =  "per_keys_serial/" + str(100) + "_" + str(number_of_vocab_words) + "_" + str(approximate_log) + ".txt"
         print("Try to read file: " + name2)
         while not os.path.exists(name2):
             print("Waiting... No file named: " + name2)
             time.sleep(40)
-        with open(name1,'r'):
-            file1 = open(name1,'r')
+        with open(name1,'r') as file1:
             cat_and_rev1 = file1.readlines()
-        with open(name2,'r'):
-            file2 = open(name2,'r')
+        with open(name2,'r') as file2:
             cat_and_rev2 = file2.readlines()
        
         return cat_and_rev1,cat_and_rev2
@@ -49,25 +64,34 @@ def read_file(per,number_of_vocab_words,approximate_log,type_of_test):
         '''
         With a given percentage of training data find the errors for all the testing data
         '''
-        name1 =  "per_keys/" + str(round(per*100)) + "_" + str(number_of_vocab_words) + "_" + str(approximate_log) + ".txt"
+        name1 =  "per_keys_serial/" + str(round(per*100)) + "_" + str(number_of_vocab_words) + "_" + str(approximate_log) + ".txt"
         print("Try to read file: " + name1)
         while not os.path.exists(name1):
             print("Waiting... No file named: " + name1)
             time.sleep(40)
-        name2 =  "per_keys_test/" + str(100) + "_" + str(number_of_vocab_words) + "_" + str(approximate_log) + ".txt"
+        name2 =  "per_keys_test_serial/" + str(100) + "_" + str(number_of_vocab_words) + "_" + str(approximate_log) + ".txt"
         print("Try to read file: " + name2)
         while not os.path.exists(name2):
             print("Waiting... No file named: " + name2)
             time.sleep(40)
-        with open(name1,'r'):
-            file1 = open(name1,'r')
+        with open(name1,'r') as file1:
             cat_and_rev1 = file1.readlines()
-        with open(name2,'r'):
-            file2 = open(name2,'r')
+        with open(name2,'r') as file2:
             cat_and_rev2 = file2.readlines()
        
         return cat_and_rev1,cat_and_rev2
 
+
+def create_vectors_for_binary_review(cat_and_rev):
+    values_for_each_sentence = list()
+    categories = cat_and_rev[0].split()
+    for x in range(1,len(cat_and_rev)):
+        values_for_each_sentence.append(cat_and_rev[x].split())
+    for x in values_for_each_sentence:
+        for y in range(len(x)):
+            x[y] = int(x[y])
+    values_for_each_sentence = np.array((values_for_each_sentence))
+    return categories,values_for_each_sentence
 def create_vectors(cat_and_rev):
     '''
     All the lines contain a \n characted

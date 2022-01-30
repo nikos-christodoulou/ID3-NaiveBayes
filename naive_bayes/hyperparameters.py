@@ -5,7 +5,7 @@ Argument list should be
 Percentage of training data, approximate logs, number of vocab words, 
 '''
 
-if len(sys.argv) == 5: 
+if len(sys.argv) == 5:
     
     per = float(sys.argv[1])/100
     approximate_logs = sys.argv[2] == "True"
@@ -13,11 +13,17 @@ if len(sys.argv) == 5:
     type_of_test = sys.argv[4]
 
     '''
-    per = 5 /100
+    per = 50 /100
     approximate_logs = False
     number_of_vocab_words = 10 
-    type_of_test = "train_data"
+    type_of_test = "same_percentage"
     '''
+    
+    
+    
+    
+    
+    
 
     
     

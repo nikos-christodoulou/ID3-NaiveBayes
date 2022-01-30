@@ -11,7 +11,7 @@ if len(sys.argv) == 4:
     approximate_logs = sys.argv[2] == "True"
     number_of_vocab_words = int(sys.argv[3])
     '''
-    per = 45/100
+    per = 50/100
     approximate_logs = False
     number_of_vocab_words = 80
     '''

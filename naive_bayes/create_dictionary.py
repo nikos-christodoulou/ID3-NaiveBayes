@@ -10,7 +10,6 @@ tup = read_files.read_file(per, number_of_vocab_words, approximate_logs,type_of_
 both_files = list()
 both_files.append(read_files.create_vectors(tup[0]))
 both_files.append(read_files.create_vectors(tup[1]))
-dictionaries = list()
 reviews_for_both = list() 
 target_for_both = list()
 categories_for_both = list()
@@ -21,9 +20,7 @@ for i in range(len(both_files)):
     #we only the train words 
     if(i == 0):
         #first list of x will be for the positive reviews and second list of x will be for the negative reviews for 0,1 values accordingly
-        each_word_count = {x:[[0,0],[0,0]] for x in categories}
-        each_word_count = word_and_count.count(dict_values_for_reviews,target_values,each_word_count,categories)
-    dictionaries.append(each_word_count)
+        each_word_count = word_and_count.count(dict_values_for_reviews,target_values,categories)
     reviews_for_both.append(dict_values_for_reviews)
     target_for_both.append(target_values)
     categories_for_both.append(categories)

@@ -7,7 +7,8 @@ approximate_logs = [False,True]
 '''
 There are three types of tests
 '''
-types_of_test = ["train_data","test_examples","same_percentage"]
+types_of_test = ["test_examples","same_percentage","train_data"]
+
 for t in types_of_test:
     for z in approximate_logs:
         if(t == "same_percentage"):

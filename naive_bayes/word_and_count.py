@@ -1,9 +1,10 @@
 import numpy as np 
-def count(dict_values_for_reviews,target_values,each_word_count,categories):
+def count(dict_values_for_reviews,target_values,categories):
     one_flag = False
     zero_flag = False
     indices_for_zero = np.array([])
     indices_for_one = np.array([])
+    each_word_count = {x:[[0,0],[0,0]] for x in categories}
     for x in range(0,len(dict_values_for_reviews)):
             
             if(target_values[x] == 1):

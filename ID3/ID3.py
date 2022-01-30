@@ -210,7 +210,7 @@ class DecisionTree:
         c = Counter(value_list)    
         value,count = c.most_common()[0]
         return value
-    def predict(self,review_and_words_present,categories,node):
+    def predict(self,review_and_words_present,categories,test_categories,node):
         '''
         review_and_words_present should be a numpy vector or a plain list that has the words of the dictionary that are present
         in the review.
@@ -218,13 +218,13 @@ class DecisionTree:
         '''
         
         while not (len(node.childs) == 0):
-            index = categories.index(node.value)
-            flag = False
-            if(len(node.childs) == 2):
-                for x in node.childs:
-                    if(x.value == review_and_words_present[index]):
-                        node = x.next 
-                        break
+            if(categories[categories.index(node.value)] in test_categories):
+                index = test_categories.index(node.value)
+                if(len(node.childs) == 2):
+                    for x in node.childs:
+                        if(x.value == review_and_words_present[index]):
+                            node = x.next 
+                            break
         prediction = node.value
         return prediction 
     

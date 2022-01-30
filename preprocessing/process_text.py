@@ -1,7 +1,7 @@
 import os 
-def split_sentence(file,path):
+def split_sentence(file):
         if file.endswith(".txt"):
-            file_name = f"{path}/{file}"
+            file_name = f"{file}"
         with open(file_name,'r',encoding="latin-1") as f:
             sentence = f.read()
         #removing special characters so the vocabulary can represent tha data set better 
