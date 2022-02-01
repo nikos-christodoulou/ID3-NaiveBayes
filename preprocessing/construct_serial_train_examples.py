@@ -19,7 +19,6 @@ training_data_frame = pd.DataFrame()
 already_selected = list()
 count = 0
 for i in folders:
-    #path = "C:/Users/Nikos/Documents/GitHub/Aiexercise2/aclImdb/train/" + i
     path = "C:/Users/fotis\OneDrive/Desktop/exer/Aiexercise2/aclImdb/train/" + i
     os.chdir(path)
     count = 0

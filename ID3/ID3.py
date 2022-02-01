@@ -143,7 +143,7 @@ class DecisionTree:
                     node.childs.append(child)
                     #find all the childs that have the specific value for a category. EG excellent 0 and excellent 1 
                     values_for_child = [value for value in review_values_ids if self.category_values[value][category_id] == x] 
-                    if not values_for_child:#if there aren't any more reviews to explore return the majority 
+                    if len(values_for_child) == 0:#if there aren't any more reviews to explore return the majority 
                         node.value = max(set(targets),key = targets.count)
                     else: 
                         if category_ids and category_id in category_ids:#we need to remove the most informational category 
@@ -215,6 +215,7 @@ class DecisionTree:
         review_and_words_present should be a numpy vector or a plain list that has the words of the dictionary that are present
         in the review.
         categories has the possible categories taken from the class itself 
+        test categories are the categories of the review that we want to classify
         '''
         
         while not (len(node.childs) == 0):

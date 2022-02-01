@@ -19,3 +19,4 @@ def IG(total_number_of_positive_reviews,total_number_of_negative_reviews,positiv
             sum = sum +  (total_number_of_positive_reviews-positive_reviews_word + total_number_of_negative_reviews - negative_reviews_word)/(total_number_of_positive_reviews + total_number_of_negative_reviews) * Entropy(total_number_of_positive_reviews-positive_reviews_word,total_number_of_negative_reviews - negative_reviews_word)
     
     return Entropy(total_number_of_positive_reviews,total_number_of_negative_reviews) - sum
+

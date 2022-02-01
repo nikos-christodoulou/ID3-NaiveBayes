@@ -15,11 +15,7 @@ along with categories
 '''
 per = per * 100 
 file_name = str(round(per)) + "_" + str(number_of_vocab_words) + "_" + str(approximate_logs) + ".txt"
-"""
-file_path = os.path.join("C:/Users/Nikos/Documents/GitHub/Aiexercise2/per_keys/",file_name)
-if not os.path.exists("C:/Users/Nikos/Documents/GitHub/Aiexercise2/per_keys/"):
-    os.makedirs("C:/Users/Nikos/Documents/GitHub/Aiexercise2/per_keys/")
-"""
+
 file_path = os.path.join("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/per_keys_test/",file_name)
 if not os.path.exists("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/per_keys_test/"):
     os.makedirs("C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/per_keys_test/")

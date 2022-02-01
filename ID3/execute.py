@@ -7,18 +7,18 @@ approximate_logs = [False,True]
 '''
 There are three types of tests
 '''
-#types_of_test = ["test_examples","train_data","same_percentage"]
-types_of_test = ["train_data"]
+types_of_test = ["test_examples","train_data","same_percentage"]
+#types_of_test = ["train_data"]
 for t in types_of_test:
     for z in approximate_logs:
         if(t == "same_percentage"):
-            for x in range(5,101,5):
+            for x in range(65,101,5):
                     for y in range(10,110,10):
                         start = time.time()
                         subprocess.call("python C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/ID3/gather_data.py " + str(x) + " " + str(z) + " " + str(y) + " " + str(t), shell=True)
                         print(time.time() - start)
         else:
-            for x in range(82,101):
+            for x in range(1,101):
                     for y in range(10,110,10):
                         start = time.time()
                         subprocess.call("python C:/Users/fotis/OneDrive/Desktop/exer/Aiexercise2/ID3/gather_data.py " + str(x) + " " + str(z) + " " + str(y) + " " + str(t), shell=True)

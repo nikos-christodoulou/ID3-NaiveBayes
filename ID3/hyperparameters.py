@@ -2,7 +2,7 @@ from getopt import getopt
 import sys ,getopt
 '''
 Argument list should be 
-Percentage of training data, approximate logs, number of vocab words, find the accuracy for the training data 
+Percentage of training data, approximate logs, number of vocab words and the type of test
 '''
 if len(sys.argv) == 5:  
     per = float(sys.argv[1])/100
@@ -15,15 +15,7 @@ if len(sys.argv) == 5:
     number_of_vocab_words = 10
     type_of_test = "same_percentage"
     '''
-    
-
-    
-    
-    
-    
-    
-    
-    
+       
 print("The percentage used will be: " + str(per))
 print("The number of vocabulary keys: " + str(number_of_vocab_words))
 print("Will the file be the approximate_logs file: " + str(approximate_logs))

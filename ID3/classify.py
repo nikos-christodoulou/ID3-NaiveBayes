@@ -82,6 +82,11 @@ while True:
         tup = read_files.create_vectors_for_binary_review(cat)
         vector = list()
         count = 0
+        '''
+        Because we want the words of the binary file to be the same with the file that we trained ID3 with 
+        we assume for all the words that are not present in the given binary file and are present in the train file 
+        that their values is 0 and we add them to the vectors
+        '''
         for x in p1.categories:
             if not (x in tup[0]):
                 tup[0].append(x)
