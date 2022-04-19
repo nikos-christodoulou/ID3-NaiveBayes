@@ -92,4 +92,35 @@ For values between 0 and 1:
 
 ![image](https://user-images.githubusercontent.com/83087431/164056831-215efbcc-2d0a-43f2-9bf4-b1683642903d.png)
 
+
+
+
+**Below are different metrics like precision,accuracy etc. for each algorithm**
+
+**Also we are doing different types of tests like accuracy on training data, accuracy on testing data etc.**
+
+![image](https://user-images.githubusercontent.com/83087431/164058036-7d6c4a40-95e3-4427-b839-0e6e127545ad.png)
+
+The below peaks are due to errors in the data: 
+![image](https://user-images.githubusercontent.com/83087431/164058126-d48b559a-27e5-45b3-bb87-71f9d67427d1.png)
+
+
+![image](https://user-images.githubusercontent.com/83087431/164058259-5c3e30fe-eb3f-4cfd-b82b-ae89c454be10.png)
+
+
+
+![image](https://user-images.githubusercontent.com/83087431/164058303-be1879e4-0fac-4ca0-8a3c-3749a840a12a.png)
+
+
+![image](https://user-images.githubusercontent.com/83087431/164058407-d8cc66a4-bee2-441f-babe-7eb5fa3c36d7.png)
+
+
+![image](https://user-images.githubusercontent.com/83087431/164058432-b208325f-4d41-4ab3-b782-6431d1bc4de2.png)
+
+
+**Below is a comparison of accuracy between different implementations from different teams**
+![image](https://user-images.githubusercontent.com/83087431/164058530-b4c90f37-dc9c-45f4-a559-e44af74dbaec.png)
+
+
+
 The commit history is a bit messy due the vast amount of files we needed to upload.
