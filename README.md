@@ -119,7 +119,16 @@ The below peaks are due to errors in the data:
 
 
 **Below is a comparison of accuracy between different implementations from different teams**
+
+
+
+
 **the other team members were: @Tasos Toumazatos,@eGkritsis,@Georgios E. Syros**
+
+
+
+
+
 ![image](https://user-images.githubusercontent.com/83087431/164058530-b4c90f37-dc9c-45f4-a559-e44af74dbaec.png)
 
 
