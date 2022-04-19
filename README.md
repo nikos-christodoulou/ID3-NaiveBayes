@@ -29,3 +29,6 @@ The algorithms run through the executables: execute.py and classify.py. In execu
 
 The if statement in executy inside the for loops is to determine what type of test we are going to do. We want to gather a lot of different metrics like testing the accuracy on training data while training the algorithms on training data etc. that's why it's done. 
 
+
+
+The commit history is a bit messy due the vast amount of files we needed to upload.
