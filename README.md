@@ -30,5 +30,66 @@ The algorithms run through the executables: execute.py and classify.py. In execu
 The if statement in executy inside the for loops is to determine what type of test we are going to do. We want to gather a lot of different metrics like testing the accuracy on training data while training the algorithms on training data etc. that's why it's done. 
 
 
+**How we approximate the logs: **
+
+
+
+
+
+1.) We have two categories p,q (negative and positive reviews). This is the entropy algorithm: 
+
+
+
+![image](https://user-images.githubusercontent.com/83087431/164055975-918caf8f-20f5-4398-8eca-3798c0ce0a2d.png)
+
+2.) Using change of base: 
+
+
+
+![image](https://user-images.githubusercontent.com/83087431/164056052-1ddd92d1-600f-4839-a094-6440422aaf06.png)
+
+We end up with this: 
+
+
+
+![image](https://user-images.githubusercontent.com/83087431/164056102-d7732b98-15a5-42ee-ab41-cfc760a60592.png)
+
+
+
+Because we are finding entropies we values for the above equation are always between 0 and 1. We know: 
+
+
+
+![image](https://user-images.githubusercontent.com/83087431/164056383-15ae1f90-24d3-4104-8be4-89a808421f36.png)
+
+For values between 0 and 1:
+
+
+
+![image](https://user-images.githubusercontent.com/83087431/164056404-5ab36bd9-0037-4683-b1b7-683a089e505b.png)
+
+
+
+3.) We can conclude:
+
+
+
+
+![image](https://user-images.githubusercontent.com/83087431/164056577-22300a47-c22b-47e0-a73c-b9da04e4aec3.png)
+
+4.) The entropy becomes: 
+
+
+
+
+![image](https://user-images.githubusercontent.com/83087431/164056631-59d1cad1-d9b8-496d-99b4-1e79f2a93364.png)
+
+5.) We can change the fractions to: 
+
+
+
+
+
+![image](https://user-images.githubusercontent.com/83087431/164056831-215efbcc-2d0a-43f2-9bf4-b1683642903d.png)
 
 The commit history is a bit messy due the vast amount of files we needed to upload.
