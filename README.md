@@ -19,3 +19,7 @@ a dictionary that will contain the most negatively or positively charged words a
 
 The algorithms will be reading 0-1 vectors for each review: 0 meaning that the specific word in the dictionary was not present in the review and 1 meaning that the word was present in the review. 
 In the Naive Bayes algorithm we use LA PLACE estimators always. 
+
+
+
+The algorithms run through the executables: execute.py and classify.py. In execute.py we build txt files that are binary vectors and there are 4 command line arguments to be given. The first x is the percentage of data you will use to train the algorithm, the second z we is the method we use to approximate logs(they require a lot of computational power) to optimizate the gathering of data and the last in the number of keywords that the dictionary will contain.
