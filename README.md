@@ -22,4 +22,10 @@ In the Naive Bayes algorithm we use LA PLACE estimators always.
 
 
 
-The algorithms run through the executables: execute.py and classify.py. In execute.py we build txt files that are binary vectors and there are 4 command line arguments to be given. The first x is the percentage of data you will use to train the algorithm, the second z we is the method we use to approximate logs(they require a lot of computational power) to optimizate the gathering of data and the last in the number of keywords that the dictionary will contain.
+The algorithms run through the executables: execute.py and classify.py. In execute.py we build txt files that are binary vectors and there are 4 command line arguments to be given. The first x is the percentage of data you will use to train the algorithm, the second z we is the method we use to approximate logs(they require a lot of computational power) to optimizate the gathering of data and the last in the number of keywords that the dictionary will contain. In classify.py you use the three above except the last one where you can give a dummy parameter. In classify you can do 3 things: 
+1.) Read the a text file, meaning a review, and see if its positive or negative 
+2.) You can type the review yourself 
+3.) You can read an existing binary vector file 
+
+The if statement in executy inside the for loops is to determine what type of test we are going to do. We want to gather a lot of different metrics like testing the accuracy on training data while training the algorithms on training data etc. that's why it's done. 
+
