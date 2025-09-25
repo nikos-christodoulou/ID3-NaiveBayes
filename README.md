@@ -1,5 +1,5 @@
 # Aiexercise2
-This a 3rd year project for Athens University of Economics and Business(AUEB) Artificial Intelligence course. The task is to implement the ID3 and the NAIVE BAYES 
+This is a 3rd year project for Athens University of Economics and Business(AUEB) Artificial Intelligence course. The task is to implement the ID3 and the NAIVE BAYES 
 algorithm and use the train and test data from the following dataset:https://ai.stanford.edu/~amaas/data/sentiment/. 
 
 
